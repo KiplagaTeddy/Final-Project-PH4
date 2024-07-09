@@ -1,4 +1,4 @@
-# PetAdopt Management System (AMS)
+# Pet Adopt Management System (AMS)
 
 The PetAdopt Management System (AMS) is a Python-based command-line application designed to streamline the pet adoption process for shelters and potential adopters.
 
