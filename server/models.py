@@ -11,7 +11,7 @@ class Youth(db.Model, SerializerMixin):
     email = db.Column(db.String, unique=True, nullable=False)
     password = db.Column(db.String, nullable=False)
     image_url = db.Column(db.String)
-    game_id = db.Column(db.Integer, nullable=False)
+    game_id = db.Column(db.Integer, db.ForeignKey('games.id'), nullable=False)
 
     enrollments = db.relationship('Enrollment', backref='youth', lazy=True)
     games = association_proxy('enrollments', 'game')
@@ -20,8 +20,8 @@ class Youth(db.Model, SerializerMixin):
         return f"<Youth {self.name}>"
 
 class Game(db.Model, SerializerMixin):
-
     __tablename__ = 'games'
+
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     description = db.Column(db.Text)
@@ -29,32 +29,26 @@ class Game(db.Model, SerializerMixin):
     image_url = db.Column(db.String)
     youth_id = db.Column(db.Integer, nullable=False)
 
-    patron = db.relationship('Patron', backref='games')
+    patrons = db.relationship('Patron', backref='games')
     enrollments = db.relationship('Enrollment', backref='game', lazy=True)
-    youths = association_proxy('enrollments', 'youth')
 
     def __repr__(self):
         return f"<Game {self.name}>"
 
 class Enrollment(db.Model, SerializerMixin):
-
     __tablename__ = 'enrollments'
 
     id = db.Column(db.Integer, primary_key=True)
-    youth_id = db.Column(db.Integer, db.ForeignKey('youths.id'))
-    game_id = db.Column(db.Integer, db.ForeignKey('games.id'))
+    youth_id = db.Column(db.Integer, db.ForeignKey('youths.id'), nullable=False)
+    game_id = db.Column(db.Integer, db.ForeignKey('games.id'), nullable=False)
     enrollment_date = db.Column(db.DateTime, default=db.func.current_timestamp())
 
-    youth = db.relationship('Youth', backref='enrollment_assoc')
-    game = db.relationship('Game', backref='enrollment_assoc')
-
     def __repr__(self):
-        return f"<Enrollment youth_id={self.youth_id} game_id={self.game_id}>"
+        return f"<Enrollment id={self.id} youth_id={self.youth_id} game_id={self.game_id}>"
 
 class Patron(db.Model, SerializerMixin):
-
     __tablename__ = 'patrons'
-    
+
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     email = db.Column(db.String, unique=True, nullable=False)
