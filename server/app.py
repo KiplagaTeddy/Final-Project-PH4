@@ -11,8 +11,6 @@ from models import Youth, Game, Enrollment, Patron
 # Initialize the Flask-RESTful API
 api = Api(app)
 
-# Views go here!
-
 @app.route('/')
 def index():
     return '<h1>Project Server</h1>'
