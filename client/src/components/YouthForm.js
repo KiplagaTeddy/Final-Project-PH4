@@ -1,6 +1,7 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import '../styles/Youths.css'; // Import CSS for styling
 
 const validationSchema = yup.object({
   name: yup.string().required('Youth name is required'),
@@ -26,14 +27,15 @@ function YouthForm() {
         .then(response => response.json())
         .then(data => {
           console.log('Youth created:', data);
+          // Optionally, you can update the list of youths after adding a new one
         })
         .catch(error => console.error('Error creating youth:', error));
     },
   });
 
   return (
-    <form onSubmit={formik.handleSubmit}>
-      <div>
+    <form className="youth-form" onSubmit={formik.handleSubmit}>
+      <div className="form-group">
         <label htmlFor="name">Youth Name</label>
         <input
           id="name"
@@ -42,9 +44,9 @@ function YouthForm() {
           onChange={formik.handleChange}
           value={formik.values.name}
         />
-        {formik.errors.name ? <div>{formik.errors.name}</div> : null}
+        {formik.errors.name ? <div className="error-msg">{formik.errors.name}</div> : null}
       </div>
-      <div>
+      <div className="form-group">
         <label htmlFor="age">Age</label>
         <input
           id="age"
@@ -53,9 +55,9 @@ function YouthForm() {
           onChange={formik.handleChange}
           value={formik.values.age}
         />
-        {formik.errors.age ? <div>{formik.errors.age}</div> : null}
+        {formik.errors.age ? <div className="error-msg">{formik.errors.age}</div> : null}
       </div>
-      <button type="submit">Add Youth</button>
+      <button type="submit" className="submit-btn">Add Youth</button>
     </form>
   );
 }

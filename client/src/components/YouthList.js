@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import YouthForm from './YouthForm';
+import '../styles/Youths.css';
 
 function YouthList() {
   const [youths, setYouths] = useState([]);
@@ -17,15 +18,31 @@ function YouthList() {
   };
 
   return (
-    <div>
+    <div className="youth-list-container">
       <h2>Youths List</h2>
       <button onClick={toggleFormVisibility}>
         {formVisible ? 'Hide Form' : 'Add Youth'}
       </button>
       {formVisible && <YouthForm />}
-      <ul>
+      <ul className="youth-list">
         {youths.map(youth => (
-          <li key={youth.id}>{youth.name}</li>
+          <li key={youth.id} className="youth-item">
+            <div>
+              <strong>Name:</strong> {youth.name}
+            </div>
+            <div>
+              <strong>Age:</strong> {youth.age}
+            </div>
+            <div>
+              <strong>Patron:</strong> {youth.patron ? youth.patron.name : 'Not Assigned'}
+            </div>
+            <div>
+              <strong>Enrollment Date:</strong> {new Date(youth.enrollmentDate).toLocaleDateString()}
+            </div>
+            <div>
+              <strong>Game:</strong> {youth.game ? youth.game.name : 'Not Assigned'}
+            </div>
+          </li>
         ))}
       </ul>
     </div>

@@ -1,11 +1,10 @@
-// src/components/Programs.js
 import React, { useEffect, useState } from 'react';
 
 function Programs() {
   const [programs, setPrograms] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/programs')
+    fetch('http://localhost:5555/programs')
       .then(response => response.json())
       .then(data => setPrograms(data));
   }, []);

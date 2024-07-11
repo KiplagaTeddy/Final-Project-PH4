@@ -1,23 +1,31 @@
-// src/components/Youths.js
+// Youths.js
 import React, { useEffect, useState } from 'react';
+import '../styles/Youths.css'; // Import CSS for styling
 
 function Youths() {
   const [youths, setYouths] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/youths')
+    fetch('http://localhost:5555/youths')
       .then(response => response.json())
-      .then(data => setYouths(data));
+      .then(data => setYouths(data))
+      .catch(error => console.error('Error fetching youths:', error));
   }, []);
 
   return (
-    <div>
-      <h1>Youths</h1>
-      <ul>
+    <div className="youths-page">
+      <h1>Youths Registered</h1>
+      <div className="youths-list">
         {youths.map(youth => (
-          <li key={youth.id}>{youth.name}</li>
+          <div key={youth.id} className="youth-card">
+            <h2>{youth.name}</h2>
+            <p>Enrolled in: {youth.program}</p>
+            <p>Patron: {youth.patron}</p>
+            <p>Enrollment Date: {youth.enrollment_date}</p>
+            {/* Add more details as needed */}
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
