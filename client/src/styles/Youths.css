@@ -1,0 +1,29 @@
+/* Youths.css */
+
+.youths-page {
+    padding: 20px;
+  }
+  
+  .youths-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  
+  .youth-card {
+    background-color: #f0f0f0;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .youth-card h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .youth-card p {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+  
