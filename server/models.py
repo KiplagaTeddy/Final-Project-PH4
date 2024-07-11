@@ -16,6 +16,8 @@ class Youth(db.Model, SerializerMixin):
     enrollments = db.relationship('Enrollment', backref='youth', lazy=True)
     games = association_proxy('enrollments', 'game')
 
+    serialize_rules = ('-enrollments', '-games')
+
     def __repr__(self):
         return f"<Youth {self.name}>"
 
@@ -32,6 +34,8 @@ class Game(db.Model, SerializerMixin):
     patrons = db.relationship('Patron', backref='games')
     enrollments = db.relationship('Enrollment', backref='game', lazy=True)
 
+    serialize_rules = ('-enrollments', '-patrons')
+
     def __repr__(self):
         return f"<Game {self.name}>"
 
@@ -42,6 +46,8 @@ class Enrollment(db.Model, SerializerMixin):
     youth_id = db.Column(db.Integer, db.ForeignKey('youths.id'), nullable=False)
     game_id = db.Column(db.Integer, db.ForeignKey('games.id'), nullable=False)
     enrollment_date = db.Column(db.DateTime, default=db.func.current_timestamp())
+
+    serialize_rules = ('-youth', '-game')
 
     def __repr__(self):
         return f"<Enrollment id={self.id} youth_id={self.youth_id} game_id={self.game_id}>"
@@ -54,6 +60,8 @@ class Patron(db.Model, SerializerMixin):
     email = db.Column(db.String, unique=True, nullable=False)
     phone_number = db.Column(db.String, nullable=False)
     image_url = db.Column(db.String)
+
+    serialize_rules = ('-games',)
 
     def __repr__(self):
         return f"<Patron {self.name}>"
