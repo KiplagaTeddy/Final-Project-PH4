@@ -1,14 +1,14 @@
-// Youths.js
+// src/components/Youths.js
 import React, { useEffect, useState } from 'react';
-import '../styles/Youths.css'; // Import CSS for styling
+import '../styles/Youths.css';
+import api from '../api';
 
 function Youths() {
   const [youths, setYouths] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5555/youths')
-      .then(response => response.json())
-      .then(data => setYouths(data))
+    api.get('/youths')
+      .then(response => setYouths(response.data))
       .catch(error => console.error('Error fetching youths:', error));
   }, []);
 

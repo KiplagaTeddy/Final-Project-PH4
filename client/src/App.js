@@ -1,11 +1,11 @@
+// src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import HomePage from './components/HomePage';
+import HomePage from './components/Home';
 import Programs from './components/Programs';
 import Youths from './components/Youths';
 import Reports from './components/Reports';
 import Login from './components/Login';
-import NotFound from './components/NotFound';
 
 function App() {
   return (
@@ -16,7 +16,6 @@ function App() {
         <Route path="/youths" element={<Youths />} />
         <Route path="/reports" element={<Reports />} />
         <Route path="/login" element={<Login />} />
-        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );

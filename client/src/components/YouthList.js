@@ -1,5 +1,7 @@
+// src/components/YouthList.js
 import React, { useState, useEffect } from 'react';
 import YouthForm from './YouthForm';
+import api from '../api';
 import '../styles/Youths.css';
 
 function YouthList() {
@@ -7,11 +9,14 @@ function YouthList() {
   const [formVisible, setFormVisible] = useState(false);
 
   useEffect(() => {
-    fetch('/api/youths')
-      .then(response => response.json())
-      .then(data => setYouths(data))
+    api.get('/youths')
+      .then(response => setYouths(response.data))
       .catch(error => console.error('Error fetching youths:', error));
   }, []);
+
+  const addYouth = (newYouth) => {
+    setYouths([...youths, newYouth]);
+  };
 
   const toggleFormVisibility = () => {
     setFormVisible(!formVisible);
@@ -23,7 +28,7 @@ function YouthList() {
       <button onClick={toggleFormVisibility}>
         {formVisible ? 'Hide Form' : 'Add Youth'}
       </button>
-      {formVisible && <YouthForm />}
+      {formVisible && <YouthForm addYouth={addYouth} />}
       <ul className="youth-list">
         {youths.map(youth => (
           <li key={youth.id} className="youth-item">
@@ -37,7 +42,7 @@ function YouthList() {
               <strong>Patron:</strong> {youth.patron ? youth.patron.name : 'Not Assigned'}
             </div>
             <div>
-              <strong>Enrollment Date:</strong> {new Date(youth.enrollmentDate).toLocaleDateString()}
+              <strong>Enrollment Date:</strong> {new Date(youth.enrollment_date).toLocaleDateString()}
             </div>
             <div>
               <strong>Game:</strong> {youth.game ? youth.game.name : 'Not Assigned'}

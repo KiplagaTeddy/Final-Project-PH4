@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 
 # Remote library imports
-from flask import request
+import bcrypt
+from flask import Flask, request
 from flask_restful import Resource, Api
+from flask_cors import CORS
 
 # Local imports
 from config import app, db
@@ -10,6 +12,7 @@ from models import Youth, Game, Enrollment, Patron
 
 # Initialize the Flask-RESTful API
 api = Api(app)
+CORS(app)
 
 @app.route('/')
 def index():
@@ -32,7 +35,7 @@ class YouthResource(Resource):
             name=data.get('name'),
             age=data.get('age'),
             email=data.get('email'),
-            password=data.get('password'),
+            password=bcrypt.generate_password_hash(data.get('password')).decode('utf-8'),
             image_url=data.get('image_url'),
             game_id=data.get('game_id')
         )
