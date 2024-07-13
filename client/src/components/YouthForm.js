@@ -1,113 +1,62 @@
-// src/components/YouthForm.js
 import React from 'react';
-import { useFormik } from 'formik';
-import * as yup from 'yup';
-import api from '../api';
-import '../styles/Youths.css';
+import { Link } from 'react-router-dom';
+import '../styles/HomePage.css'; // Import CSS for styling
 
-const validationSchema = yup.object({
-  name: yup.string().required('Youth name is required'),
-  age: yup.number().required('Age is required').positive().integer(),
-  email: yup.string().email('Invalid email').required('Email is required'),
-  password: yup.string().required('Password is required'),
-  image_url: yup.string().url('Invalid URL'),
-  game_id: yup.number().required('Game ID is required').positive().integer(),
-});
-
-function YouthForm({ addYouth }) {
-  const formik = useFormik({
-    initialValues: {
-      name: '',
-      age: '',
-      email: '',
-      password: '',
-      image_url: '',
-      game_id: '',
-    },
-    validationSchema: validationSchema,
-    onSubmit: (values, { resetForm }) => {
-      api.post('/youths', values)
-        .then(response => {
-          addYouth(response.data);
-          resetForm();
-        })
-        .catch(error => console.error('Error creating youth:', error));
-    },
-  });
-
+const HomePage = () => {
   return (
-    <form className="youth-form" onSubmit={formik.handleSubmit}>
-      {/* form fields for name, age, email, password, image_url, game_id */}
-      {/* Add form fields here */}
-      <div className="form-group">
-        <label htmlFor="name">Youth Name</label>
-        <input
-          id="name"
-          name="name"
-          type="text"
-          onChange={formik.handleChange}
-          value={formik.values.name}
-        />
-        {formik.errors.name ? <div className="error-msg">{formik.errors.name}</div> : null}
-      </div>
-      <div className="form-group">
-        <label htmlFor="age">Age</label>
-        <input
-          id="age"
-          name="age"
-          type="number"
-          onChange={formik.handleChange}
-          value={formik.values.age}
-        />
-        {formik.errors.age ? <div className="error-msg">{formik.errors.age}</div> : null}
-      </div>
-      <div className="form-group">
-        <label htmlFor="email">Email</label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          onChange={formik.handleChange}
-          value={formik.values.email}
-        />
-        {formik.errors.email ? <div className="error-msg">{formik.errors.email}</div> : null}
-      </div>
-      <div className="form-group">
-        <label htmlFor="password">Password</label>
-        <input
-          id="password"
-          name="password"
-          type="password"
-          onChange={formik.handleChange}
-          value={formik.values.password}
-        />
-        {formik.errors.password ? <div className="error-msg">{formik.errors.password}</div> : null}
-      </div>
-      <div className="form-group">
-        <label htmlFor="image_url">Image URL</label>
-        <input
-          id="image_url"
-          name="image_url"
-          type="url"
-          onChange={formik.handleChange}
-          value={formik.values.image_url}
-        />
-        {formik.errors.image_url ? <div className="error-msg">{formik.errors.image_url}</div> : null}
-      </div>
-      <div className="form-group">
-        <label htmlFor="game_id">Game ID</label>
-        <input
-          id="game_id"
-          name="game_id"
-          type="number"
-          onChange={formik.handleChange}
-          value={formik.values.game_id}
-        />
-        {formik.errors.game_id ? <div className="error-msg">{formik.errors.game_id}</div> : null}
-      </div>
-      <button type="submit" className="submit-btn">Add Youth</button>
-    </form>
-  );
-}
+    <div className="home-page">
+      <header className="header">
+        <div className="logo">Vijana Sports System</div>
+        <nav className="navbar">
+          <ul>
+            <li><Link to="/programs">Programs</Link></li>
+            <li><Link to="/youths">Youths</Link></li>
+            <li><Link to="/reports">Reports</Link></li>
+            <li><Link to="/login">Login</Link></li>
+            <li><Link to="/add-youth">Add Youth</Link></li> {/* Link to YouthForm */}
+          </ul>
+        </nav>
+      </header>
 
-export default YouthForm;
+      <section className="hero">
+        <div className="hero-content">
+          <h1>Welcome to Vijana Sports System</h1>
+          <p>Streamline youth program management and enrichment.</p>
+          <Link to="/programs" className="cta-button">Explore Programs</Link>
+        </div>
+        <div className="hero-image">
+          {/* Illustration or image representing your application */}
+        </div>
+      </section>
+
+      <section className="features">
+        <h2>Key Features</h2>
+        <div className="feature-list">
+          <div className="feature">
+            {/* Feature icon */}
+            <h3>Program Management</h3>
+            <p>Create, manage, and track youth programs with ease.</p>
+          </div>
+          <div className="feature">
+            {/* Feature icon */}
+            <h3>Youth Enrollment</h3>
+            <p>Enable youths to explore and enroll in various programs.</p>
+          </div>
+          {/* Add more features as necessary */}
+        </div>
+      </section>
+
+      <footer className="footer">
+        <div className="contact-info">
+          <p>Contact us: info@vijanasports.com</p>
+          <p>Follow us: <a href="https://twitter.com/vijanasports">Twitter</a>, <a href="https://facebook.com/vijanasports">Facebook</a></p>
+        </div>
+        <div className="legal">
+          <p><Link to="/terms">Terms of Service</Link> | <Link to="/privacy">Privacy Policy</Link></p>
+        </div>
+      </footer>
+    </div>
+  );
+};
+
+export default HomePage;

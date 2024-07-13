@@ -1,4 +1,3 @@
-// HomePage.js
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/HomePage.css'; // Import CSS for styling
@@ -14,6 +13,7 @@ const HomePage = () => {
             <li><Link to="/youths">Youths</Link></li>
             <li><Link to="/reports">Reports</Link></li>
             <li><Link to="/login">Login</Link></li>
+            <li><Link to="/add-youth">Add Youth</Link></li> {/* Link to YouthForm */}
           </ul>
         </nav>
       </header>

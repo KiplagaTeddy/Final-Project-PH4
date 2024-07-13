@@ -1,24 +1,20 @@
 #!/usr/bin/env python3
 
-# Remote library imports
 import bcrypt
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask_restful import Resource, Api
 from flask_cors import CORS
-
-# Local imports
+from flask_cors import CORS  
 from config import app, db
 from models import Youth, Game, Enrollment, Patron
 
-# Initialize the Flask-RESTful API
 api = Api(app)
-CORS(app)
+CORS(app)  
 
 @app.route('/')
 def index():
     return '<h1>Project Server</h1>'
 
-# Define resource classes
 class YouthResource(Resource):
     def get(self, youth_id=None):
         if youth_id:
@@ -189,7 +185,19 @@ class PatronResource(Resource):
             return {'message': 'Patron deleted'}, 200
         return {'error': 'Patron not found'}, 404
 
-# Adding resources to the API
+@app.route('/youths/<int:youth_id>', methods=['DELETE'])
+def delete_youth(youth_id):
+    youth = Youth.query.get(youth_id)
+    if not youth:
+        return jsonify({"error": "Youth not found"}), 404
+
+    # Delete associated enrollments first
+    Enrollment.query.filter_by(youth_id=youth_id).delete()
+    db.session.delete(youth)
+    db.session.commit()
+    
+    return jsonify({"message": "Youth deleted successfully"}), 200
+
 api.add_resource(YouthResource, '/youths', '/youths/<int:youth_id>')
 api.add_resource(GameResource, '/games', '/games/<int:game_id>')
 api.add_resource(EnrollmentResource, '/enrollments', '/enrollments/<int:enrollment_id>')

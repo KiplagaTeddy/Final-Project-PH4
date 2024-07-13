@@ -9,10 +9,10 @@ flask-restful = "*"
 flask-cors = "*"
 flask-migrate = "*"
 sqlalchemy = "*"
-sqlalchemy_serializer = "*"
+faker = "*"
+sqlalchemy-serializer = "*"
 
 [dev-packages]
 
 [requires]
 python_version = "3.12"
-

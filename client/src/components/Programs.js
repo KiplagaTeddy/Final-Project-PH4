@@ -4,7 +4,7 @@ function Programs() {
   const [programs, setPrograms] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5555/programs')
+    fetch('http://localhost:5555/games')
       .then(response => response.json())
       .then(data => setPrograms(data));
   }, []);

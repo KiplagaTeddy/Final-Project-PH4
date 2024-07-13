@@ -1,16 +1,36 @@
-// src/components/Youths.js
 import React, { useEffect, useState } from 'react';
 import '../styles/Youths.css';
-import api from '../api';
 
 function Youths() {
   const [youths, setYouths] = useState([]);
 
   useEffect(() => {
-    api.get('/youths')
-      .then(response => setYouths(response.data))
+    fetch('http://localhost:5555/youths')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => setYouths(data))
       .catch(error => console.error('Error fetching youths:', error));
   }, []);
+
+  const handleDelete = (id) => {
+    fetch(`http://localhost:5555/youths/${id}`, {
+      method: 'DELETE',
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(() => {
+        setYouths(youths.filter(youth => youth.id !== id));
+      })
+      .catch(error => console.error('Error deleting youth:', error));
+  };
 
   return (
     <div className="youths-page">
@@ -19,10 +39,11 @@ function Youths() {
         {youths.map(youth => (
           <div key={youth.id} className="youth-card">
             <h2>{youth.name}</h2>
-            <p>Enrolled in: {youth.program}</p>
-            <p>Patron: {youth.patron}</p>
-            <p>Enrollment Date: {youth.enrollment_date}</p>
-            {/* Add more details as needed */}
+            <p>Email: {youth.email}</p>
+            <p>Age: {youth.age}</p>
+            <p>Enrolled in: {youth.game_id}</p>
+            <p>Patron: {youth.patron_id}</p>
+            <button onClick={() => handleDelete(youth.id)} class="delete">Delete Youth</button>
           </div>
         ))}
       </div>
