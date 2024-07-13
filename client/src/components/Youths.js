@@ -43,7 +43,7 @@ function Youths() {
             <p>Age: {youth.age}</p>
             <p>Enrolled in: {youth.game_id}</p>
             <p>Patron: {youth.patron_id}</p>
-            <button onClick={() => handleDelete(youth.id)} class="delete">Delete Youth</button>
+            <button onClick={() => handleDelete(youth.id)} className="delete">Delete Youth</button>
           </div>
         ))}
       </div>
