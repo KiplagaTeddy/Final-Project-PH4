@@ -10,7 +10,7 @@ const App = () => {
       name: "Football",
       description: "A competitive game involving two teams aiming to score goals by kicking a ball into the opponent's goal.",
       level: 1,
-      image_url: "https://www.instituteforgovernment.org.uk/explainer/football-governance"
+      image_url: "68a64b1a-e14c-4e5d-867e-ca459fd1a3f7.jpeg"
     },
     {
       id: 2,
@@ -73,7 +73,7 @@ const App = () => {
       name: "Volleyball",
       description: "A team sport played by two teams of six players each, where the aim is to score points by grounding a ball on the opponent's court.",
       level: 5,
-      image_url: "https://media.istockphoto.com/id/1473259144/photo/volleyball-ball-and-net-in-voleyball-arena-during-a-match.jpg"
+      image_url: "100+ Free Volley Ball & Volleyball Images.jpeg"
     }
   ];
 
