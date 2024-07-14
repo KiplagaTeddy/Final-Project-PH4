@@ -5,54 +5,52 @@ import '../styles/HomePage.css'; // Import CSS for styling
 const HomePage = () => {
   return (
     <div className="home-page">
-      <header className="header">
-        <div className="logo">Vijana Sports System</div>
-        <nav className="navbar">
-          <ul>
-            <li><Link to="/programs">Programs</Link></li>
-            <li><Link to="/youths">Youths</Link></li>
-            <li><Link to="/reports">Reports</Link></li>
-            <li><Link to="/login">Login</Link></li>
-            <li><Link to="/add-youth">Add Youth</Link></li> {/* Link to YouthForm */}
-          </ul>
-        </nav>
-      </header>
-
+      <nav className="navbar">
+        <h1>Youth Sports</h1>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/programs">Programs</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </nav>
       <section className="hero">
-        <div className="hero-content">
-          <h1>Welcome to Vijana Sports System</h1>
-          <p>Streamline youth program management and enrichment.</p>
-          <Link to="/programs" className="cta-button">Explore Programs</Link>
-        </div>
         <div className="hero-image">
-          {/* Illustration or image representing your application */}
+          <h1>Empowering Youth Through Sports</h1>
         </div>
       </section>
 
-      <section className="features">
-        <h2>Key Features</h2>
-        <div className="feature-list">
-          <div className="feature">
-            {/* Feature icon */}
-            <h3>Program Management</h3>
-            <p>Create, manage, and track youth programs with ease.</p>
-          </div>
-          <div className="feature">
-            {/* Feature icon */}
-            <h3>Youth Enrollment</h3>
-            <p>Enable youths to explore and enroll in various programs.</p>
-          </div>
-          {/* Add more features as necessary */}
+      <section className="mission">
+        <div className="mission-text">
+          <h2>Our Mission:</h2>
+          <p>We are dedicated to providing accessible sports programs for youth, fostering teamwork, discipline, and personal growth. Our goal is to create a positive impact in the lives of young athletes through inclusive and engaging sports activities.</p>
+        </div>
+        <div className="mission-image">
+          <img src="../background1.jpg" alt="Youth playing sports" />
         </div>
       </section>
 
-      <footer className="footer">
-        <div className="contact-info">
-          <p>Contact us: info@vijanasports.com</p>
-          <p>Follow us: <a href="https://twitter.com/vijanasports">Twitter</a>, <a href="https://facebook.com/vijanasports">Facebook</a></p>
+      <section className="cards">
+        <div className="card">
+          <h3>Enroll Now</h3>
+          <p>Join our sports programs and start your athletic journey today!</p>
+          <Link to="/add-youth" className="btn btn-green">Enroll</Link>
         </div>
-        <div className="legal">
-          <p><Link to="/terms">Terms of Service</Link> | <Link to="/privacy">Privacy Policy</Link></p>
+        <div className="card">
+          <h3>What We Offer</h3>
+          <p>Explore our wide range of sports programs and activities.</p>
+          <Link to="/Programs" className="btn btn-green">Learn More</Link>
+        </div>
+      </section>
+
+      <footer className="footer bg-gray-800 text-white py-8">
+        <div className="container mx-auto text-center">
+          <p>© 2024 YouthSports. All rights reserved.</p>
+          <div className="mt-4">
+            <a href="https://github.com/KiplagaTeddy/Final-Project-PH4" className="text-blue-400 hover:text-blue-300 mx-2">Privacy Policy</a>
+            <a href="https://github.com/KiplagaTeddy/Final-Project-PH4" className="text-blue-400 hover:text-blue-300 mx-2">Terms of Service</a>
+            <a href="https://github.com/KiplagaTeddy/Final-Project-PH4" className="text-blue-400 hover:text-blue-300 mx-2">Contact Us</a>
+          </div>
         </div>
       </footer>
     </div>

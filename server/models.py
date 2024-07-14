@@ -9,7 +9,7 @@ class Youth(db.Model, SerializerMixin):
     name = db.Column(db.String, nullable=False)
     age = db.Column(db.Integer, nullable=False)
     email = db.Column(db.String, unique=True, nullable=False)
-    password = db.Column(db.String, nullable=False)
+    password = db.Column(db.String)
     image_url = db.Column(db.String)
     game_id = db.Column(db.Integer, db.ForeignKey('games.id'), nullable=False)
 

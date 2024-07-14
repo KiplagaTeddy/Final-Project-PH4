@@ -4,13 +4,16 @@ import bcrypt
 from flask import Flask, request, jsonify
 from flask_restful import Resource, Api
 from flask_cors import CORS
-from flask_cors import CORS  
-from config import app, db
-from models import Youth, Game, Enrollment, Patron
+from models import db, Youth, Game, Enrollment, Patron  # Assuming your models are defined in models.py
 
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///your_database.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db.init_app(app)
+CORS(app)
 api = Api(app)
-CORS(app)  
 
+# Routes
 @app.route('/')
 def index():
     return '<h1>Project Server</h1>'
@@ -26,14 +29,13 @@ class YouthResource(Resource):
         return [youth.to_dict() for youth in youths], 200
 
     def post(self):
-        data = request.json
+        data = request.form.to_dict()
         youth = Youth(
             name=data.get('name'),
-            age=data.get('age'),
+            age=int(data.get('age')),
             email=data.get('email'),
-            password=bcrypt.generate_password_hash(data.get('password')).decode('utf-8'),
             image_url=data.get('image_url'),
-            game_id=data.get('game_id')
+            game_id=int(data.get('game_id'))
         )
         db.session.add(youth)
         db.session.commit()
@@ -46,7 +48,6 @@ class YouthResource(Resource):
             youth.name = data.get('name', youth.name)
             youth.age = data.get('age', youth.age)
             youth.email = data.get('email', youth.email)
-            youth.password = data.get('password', youth.password)
             youth.image_url = data.get('image_url', youth.image_url)
             youth.game_id = data.get('game_id', youth.game_id)
             db.session.commit()
@@ -184,19 +185,6 @@ class PatronResource(Resource):
             db.session.commit()
             return {'message': 'Patron deleted'}, 200
         return {'error': 'Patron not found'}, 404
-
-@app.route('/youths/<int:youth_id>', methods=['DELETE'])
-def delete_youth(youth_id):
-    youth = Youth.query.get(youth_id)
-    if not youth:
-        return jsonify({"error": "Youth not found"}), 404
-
-    # Delete associated enrollments first
-    Enrollment.query.filter_by(youth_id=youth_id).delete()
-    db.session.delete(youth)
-    db.session.commit()
-    
-    return jsonify({"message": "Youth deleted successfully"}), 200
 
 api.add_resource(YouthResource, '/youths', '/youths/<int:youth_id>')
 api.add_resource(GameResource, '/games', '/games/<int:game_id>')
