@@ -83,31 +83,3 @@ body {
   footer ul li a:hover {
     text-decoration: underline;
   }
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #007bff;
-    padding: 1rem 2rem;
-  }
-  
-  .navbar h1 {
-    color: #fff;
-    margin: 0;
-  }
-  
-  .navbar ul {
-    list-style: none;
-    display: flex;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .navbar ul li {
-    margin-left: 1rem;
-  }
-  
-  .navbar ul li a {
-    color: #fff;
-    text-decoration: none;
-  }  

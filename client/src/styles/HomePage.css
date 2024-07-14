@@ -14,23 +14,6 @@
   font-size: 24px;
   color: white;
 }
-
-.navbar ul {
-  list-style: none;
-  display: flex;
-  margin: 0;
-  padding: 0;
-}
-
-.navbar li {
-  margin-left: 20px;
-}
-
-.navbar a {
-  color: white;
-  text-decoration: none;
-}
-
 .hero {
   position: relative;
   text-align: center;

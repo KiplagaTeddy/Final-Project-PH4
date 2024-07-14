@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import '../styles/YouthForm.css'; // Import CSS for styling
+import Navbar from './Navbar';
 
 const YouthForm = () => {
   const games = [
@@ -110,15 +111,7 @@ const YouthForm = () => {
 
   return (
     <div className="youth-form-container">
-      <nav className="navbar">
-        <h1>Youth Sports</h1>
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/programs">Programs</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="/add-youth">Enroll</a></li>
-        </ul>
-      </nav>
+      <Navbar></Navbar>
       <main>
         <form className="youth-form" onSubmit={handleSubmit}>
           <h2>Register Youth</h2>

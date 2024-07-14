@@ -1,19 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/HomePage.css'; // Import CSS for styling
+import Navbar from './Navbar';
 
 const HomePage = () => {
   return (
     <div className="home-page">
-      <nav className="navbar">
-        <h1>Youth Sports</h1>
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/programs">Programs</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="/contact">Contact</a></li>
-        </ul>
-      </nav>
+      <Navbar></Navbar>
       <section className="hero">
         <div className="hero-image">
           <h1>Empowering Youth Through Sports</h1>

@@ -1,21 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 function Navbar() {
   return (
-    <nav>
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/programs">Programs</Link>
-        </li>
-        <li>
-          <Link to="/youths">Youths</Link>
-        </li>
-      </ul>
-    </nav>
+    <nav className="navbar">
+        <h1>Vijana Sports</h1>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/programs">Programs</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/add-youth">Enroll</a></li>
+        </ul>
+      </nav>
   );
 }
 

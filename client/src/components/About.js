@@ -1,20 +1,13 @@
 import React from "react";
 import '../styles/Program.css'; // Ensure the path to your CSS file is correct
+import Navbar from "./Navbar";
 
 const AboutUs = () => {
 
 
   return (
     <div className="App">
-        <nav className="navbar">
-        <h1>Youth Sports</h1>
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/programs">Programs</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="/add-youth">Enroll </a></li>
-        </ul>
-      </nav>
+        <Navbar></Navbar>
       <header>
         <h2>About Us</h2>
       </header>

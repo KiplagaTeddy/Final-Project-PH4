@@ -1,6 +1,7 @@
 import React from 'react';
 import '../styles/Program.css';
 import { Link } from 'react-router-dom';
+import Navbar from './Navbar';
 
 const App = () => {
   const games = [
@@ -78,15 +79,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <nav className="navbar">
-        <h1>Youth Sports</h1>
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/programs">Programs</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="/add-youth">Enroll</a></li>
-        </ul>
-      </nav>
+      <Navbar></Navbar>
       <header>
         <h2>Enroll in Youth Sports</h2>
       </header>
@@ -96,7 +89,8 @@ const App = () => {
             <img src={game.image_url} alt={game.name} />
             <div className="card-content">
               <h3>{game.name}</h3>
-              <p>{game.description}</p>
+                <p>{game.description}</p>     
+                <h4>Game ID number: {game.id}</h4>
               <Link to="/add-youth" className="btn btn-green">Enroll Now!</Link>
             </div>
           </div>
