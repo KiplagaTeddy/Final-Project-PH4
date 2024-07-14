@@ -4,12 +4,15 @@ import bcrypt
 from flask import Flask, request, jsonify
 from flask_restful import Resource, Api
 from flask_cors import CORS
-from models import db, Youth, Game, Enrollment, Patron  # Assuming your models are defined in models.py
+from flask_migrate import Migrate
+from models import db, Youth, Game, Enrollment, Patron
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///your_database.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 db.init_app(app)
+migrate = Migrate(app, db)
 CORS(app)
 api = Api(app)
 
@@ -29,20 +32,20 @@ class YouthResource(Resource):
         return [youth.to_dict() for youth in youths], 200
 
     def post(self):
-        data = request.form.to_dict()
+        data = request.get_json()
         youth = Youth(
             name=data.get('name'),
-            age=int(data.get('age')),
+            age=data.get('age'),
             email=data.get('email'),
             image_url=data.get('image_url'),
-            game_id=int(data.get('game_id'))
+            game_id=data.get('game_id')
         )
         db.session.add(youth)
         db.session.commit()
         return youth.to_dict(), 201
 
     def put(self, youth_id):
-        data = request.json
+        data = request.get_json()
         youth = Youth.query.get(youth_id)
         if youth:
             youth.name = data.get('name', youth.name)
@@ -73,7 +76,7 @@ class GameResource(Resource):
         return [game.to_dict() for game in games], 200
 
     def post(self):
-        data = request.json
+        data = request.get_json()
         game = Game(
             name=data.get('name'),
             description=data.get('description'),
@@ -86,7 +89,7 @@ class GameResource(Resource):
         return game.to_dict(), 201
 
     def put(self, game_id):
-        data = request.json
+        data = request.get_json()
         game = Game.query.get(game_id)
         if game:
             game.name = data.get('name', game.name)
@@ -117,7 +120,7 @@ class EnrollmentResource(Resource):
         return [enrollment.to_dict() for enrollment in enrollments], 200
 
     def post(self):
-        data = request.json
+        data = request.get_json()
         enrollment = Enrollment(
             youth_id=data.get('youth_id'),
             game_id=data.get('game_id')
@@ -127,7 +130,7 @@ class EnrollmentResource(Resource):
         return enrollment.to_dict(), 201
 
     def put(self, enrollment_id):
-        data = request.json
+        data = request.get_json()
         enrollment = Enrollment.query.get(enrollment_id)
         if enrollment:
             enrollment.youth_id = data.get('youth_id', enrollment.youth_id)
@@ -155,7 +158,7 @@ class PatronResource(Resource):
         return [patron.to_dict() for patron in patrons], 200
 
     def post(self):
-        data = request.json
+        data = request.get_json()
         patron = Patron(
             name=data.get('name'),
             email=data.get('email'),
@@ -167,7 +170,7 @@ class PatronResource(Resource):
         return patron.to_dict(), 201
 
     def put(self, patron_id):
-        data = request.json
+        data = request.get_json()
         patron = Patron.query.get(patron_id)
         if patron:
             patron.name = data.get('name', patron.name)

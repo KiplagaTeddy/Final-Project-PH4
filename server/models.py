@@ -29,12 +29,14 @@ class Game(db.Model, SerializerMixin):
     description = db.Column(db.Text)
     patron_id = db.Column(db.Integer, db.ForeignKey('patrons.id'))
     image_url = db.Column(db.String)
-    youth_id = db.Column(db.Integer, nullable=False)
 
-    patrons = db.relationship('Patron', backref='games')
+    # Relationship with Youth and Enrollment
     enrollments = db.relationship('Enrollment', backref='game', lazy=True)
 
-    serialize_rules = ('-enrollments', '-patrons')
+    # Relationship with Patron
+    patron = db.relationship('Patron', backref='games')
+
+    serialize_rules = ('-enrollments', '-patron')
 
     def __repr__(self):
         return f"<Game {self.name}>"
