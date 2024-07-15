@@ -3,6 +3,8 @@ import '../styles/Youths.css';
 
 function Youths() {
   const [youths, setYouths] = useState([]);
+  const [filteredYouths, setFilteredYouths] = useState([]);
+  const [ageFilter, setAgeFilter] = useState('');
 
   useEffect(() => {
     fetch('/youths')
@@ -12,7 +14,10 @@ function Youths() {
         }
         return response.json();
       })
-      .then(data => setYouths(data))
+      .then(data => {
+        setYouths(data);
+        setFilteredYouths(data); // Initialize filteredYouths with all youths
+      })
       .catch(error => console.error('Error fetching youths:', error));
   }, []);
 
@@ -27,16 +32,32 @@ function Youths() {
         return response.json();
       })
       .then(() => {
-        setYouths(youths.filter(youth => youth.id !== id));
+        const updatedYouths = youths.filter(youth => youth.id !== id);
+        setYouths(updatedYouths);
+        setFilteredYouths(updatedYouths);
       })
       .catch(error => console.error('Error deleting youth:', error));
+  };
+
+  const handleFilter = () => {
+    const filtered = youths.filter(youth => youth.age.toString() === ageFilter);
+    setFilteredYouths(filtered);
   };
 
   return (
     <div className="youths-page">
       <h1>Youths Registered</h1>
+      <div className="filter-container">
+        <input
+          type="number"
+          placeholder="Filter by age"
+          value={ageFilter}
+          onChange={(e) => setAgeFilter(e.target.value)}
+        />
+        <button onClick={handleFilter} className="filter">Filter</button>
+      </div>
       <div className="youths-list">
-        {youths.map(youth => (
+        {filteredYouths.map(youth => (
           <div key={youth.id} className="youth-card">
             <h2>{youth.name}</h2>
             <p>Email: {youth.email}</p>
