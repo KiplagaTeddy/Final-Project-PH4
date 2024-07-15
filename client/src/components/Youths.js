@@ -120,8 +120,8 @@ function Youths() {
             <h2>{youth.name}</h2>
             <p>Email: {youth.email}</p>
             <p>Age: {youth.age}</p>
-            <p>Enrollment Date: {youth.enrollmentDetails ? youth.enrollmentDetails.enrollment_date : '-'}</p>
-            <p>Game: {youth.enrollmentDetails ? youth.enrollmentDetails.game_name : '-'}</p>
+            {/* <p>Enrollment Date: {youth.enrollmentDetails ? youth.enrollmentDetails.enrollment_date : '-'}</p>
+            <p>Game: {youth.enrollmentDetails ? youth.enrollmentDetails.game_name : '-'}</p> */}
             <button onClick={() => handleDelete(youth.id)} className="delete">Delete Youth</button>
           </div>
         ))}
