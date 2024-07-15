@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/Youths.css';
+import Navbar from './Navbar';
 
 function Youths() {
   const [youths, setYouths] = useState([]);
@@ -60,6 +61,7 @@ function Youths() {
 
   return (
     <div className="youths-page">
+      <Navbar />
       <h1>Youths Registered</h1>
       <div className="filter-container">
         <input

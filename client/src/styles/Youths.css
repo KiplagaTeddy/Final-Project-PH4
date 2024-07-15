@@ -15,6 +15,7 @@ body {
   background-color: #fff; /* White background */
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  margin-top: 80px; /* Adjust margin-top to account for navbar height */
 }
 
 h1 {
