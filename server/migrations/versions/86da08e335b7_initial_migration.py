@@ -1,8 +1,8 @@
-"""Initial migration.
+"""Initial migration
 
-Revision ID: 178dd5a6432a
+Revision ID: 86da08e335b7
 Revises: 
-Create Date: 2024-07-10 20:22:40.862638
+Create Date: 2024-07-15 14:27:39.008742
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '178dd5a6432a'
+revision = '86da08e335b7'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -21,40 +21,41 @@ def upgrade():
     op.create_table('patrons',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(), nullable=False),
-    sa.Column('email', sa.String(), nullable=False),
+    sa.Column('emails', sa.String(), nullable=False),
     sa.Column('phone_number', sa.String(), nullable=False),
     sa.Column('image_url', sa.String(), nullable=True),
     sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('email')
+    sa.UniqueConstraint('emails')
     )
+    
     op.create_table('youths',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(), nullable=False),
     sa.Column('age', sa.Integer(), nullable=False),
     sa.Column('email', sa.String(), nullable=False),
-    sa.Column('password', sa.String(), nullable=False),
+    sa.Column('password', sa.String(), nullable=True),
     sa.Column('image_url', sa.String(), nullable=True),
-    sa.Column('game_id', sa.Integer(), nullable=False),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email')
     )
+    
     op.create_table('games',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(), nullable=False),
     sa.Column('description', sa.Text(), nullable=True),
-    sa.Column('patron_id', sa.Integer(), nullable=True),
     sa.Column('image_url', sa.String(), nullable=True),
-    sa.Column('youth_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['patron_id'], ['patrons.id'], name=op.f('fk_games_patron_id_patrons')),
+    sa.Column('patron_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['patron_id'], ['patrons.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    
     op.create_table('enrollments',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('youth_id', sa.Integer(), nullable=True),
-    sa.Column('game_id', sa.Integer(), nullable=True),
+    sa.Column('youth_id', sa.Integer(), nullable=False),
+    sa.Column('game_id', sa.Integer(), nullable=False),
     sa.Column('enrollment_date', sa.DateTime(), nullable=True),
-    sa.ForeignKeyConstraint(['game_id'], ['games.id'], name=op.f('fk_enrollments_game_id_games')),
-    sa.ForeignKeyConstraint(['youth_id'], ['youths.id'], name=op.f('fk_enrollments_youth_id_youths')),
+    sa.ForeignKeyConstraint(['game_id'], ['games.id'], ),
+    sa.ForeignKeyConstraint(['youth_id'], ['youths.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
