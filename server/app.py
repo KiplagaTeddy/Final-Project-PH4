@@ -11,9 +11,10 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+CORS(app, resources={r"/*": {"origins": "*"}})
 db.init_app(app)
 migrate = Migrate(app, db)
-CORS(app)
+
 api = Api(app)
 
 # Routes

@@ -30,9 +30,14 @@
     margin-left: 1rem;
   }
   
-  .navbar ul li a {
+  .navbar ul li  {
     color: #fff;
     text-decoration: none;
     font-size: 1rem; /* Adjusted size for better balance */
   }
   
+  .heading {
+    color: #fff;
+    margin: 0;
+    font-size: 2rem; /* Increased size for better visibility */
+  }

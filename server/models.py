@@ -11,7 +11,6 @@ class Youth(db.Model, SerializerMixin):
     email = db.Column(db.String, unique=True, nullable=False)
     password = db.Column(db.String)
     image_url = db.Column(db.String)
-    game_id = db.Column(db.Integer, db.ForeignKey('games.id'), nullable=False)
 
     enrollments = db.relationship('Enrollment', backref='youth', lazy=True)
     games = association_proxy('enrollments', 'game')
@@ -30,11 +29,8 @@ class Game(db.Model, SerializerMixin):
     patron_id = db.Column(db.Integer, db.ForeignKey('patrons.id'))
     image_url = db.Column(db.String)
 
-    # Relationship with Youth and Enrollment
     enrollments = db.relationship('Enrollment', backref='game', lazy=True)
-
-    # Relationship with Patron
-    patron = db.relationship('Patron', backref='games')
+    patron = db.relationship('Patron', backref='games', lazy=True)
 
     serialize_rules = ('-enrollments', '-patron')
 

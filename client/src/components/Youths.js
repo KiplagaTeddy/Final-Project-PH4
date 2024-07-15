@@ -5,7 +5,7 @@ function Youths() {
   const [youths, setYouths] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5555/youths')
+    fetch('/youths')
       .then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
