@@ -5,6 +5,7 @@ function Youths() {
   const [youths, setYouths] = useState([]);
   const [filteredYouths, setFilteredYouths] = useState([]);
   const [ageFilter, setAgeFilter] = useState('');
+  const [sortOrder, setSortOrder] = useState('asc'); // State to track sorting order
 
   useEffect(() => {
     fetch('/youths')
@@ -44,6 +45,19 @@ function Youths() {
     setFilteredYouths(filtered);
   };
 
+  const handleSort = () => {
+    const sortedYouths = [...filteredYouths].sort((a, b) => {
+      if (sortOrder === 'asc') {
+        return a.age - b.age;
+      } else {
+        return b.age - a.age;
+      }
+    });
+    setFilteredYouths(sortedYouths);
+    // Toggle sort order
+    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+  };
+
   return (
     <div className="youths-page">
       <h1>Youths Registered</h1>
@@ -55,6 +69,9 @@ function Youths() {
           onChange={(e) => setAgeFilter(e.target.value)}
         />
         <button onClick={handleFilter} className="filter">Filter</button>
+        <button onClick={handleSort} className="sort">
+          {sortOrder === 'asc' ? 'Sort by Age Ascending' : 'Sort by Age Descending'}
+        </button>
       </div>
       <div className="youths-list">
         {filteredYouths.map(youth => (
