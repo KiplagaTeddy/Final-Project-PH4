@@ -1,138 +1,252 @@
 /* HomePage.css */
 
-/* Body and general styles */
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/* Global Styles */
 body {
   font-family: 'Roboto', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f2f2f2;
+  background-color: #ffffff;
+  color: #ffffff;
+  line-height: 1.6;
 }
 
-.home-page {
-  overflow-x: hidden; /* Prevent horizontal scroll */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
+/* Header Styles */
+.header {
+  background-color: #ffffff;
+  color: #ffffff;
+  padding: 10px 0;
+  text-align: center;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* Hero Section */
 .hero {
   position: relative;
-  text-align: center;
-  color: white;
-  padding: 80px 0; /* Adjusted padding for better spacing */
-}
-
-.hero-image {
-  width: 100%;
-  height: 500px; /* Increased height for better visibility */
-  background: url('https://www.vecteezy.com/free-photos/black-sports-background') no-repeat center center;
+  background-image: url('./_\ \(1\).jpeg'); /* Adjust path to texture image */
   background-size: cover;
+  background-position: bottom;
+  height: 70vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  color: rgb(255, 255, 255);
+  overflow: hidden;
+  animation: backgroundFade 5s infinite alternate;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(91, 85, 139, 0.5); /* Dark overlay */
 }
 
 .hero-heading {
-  font-size: 3.5rem; /* Increased font size for emphasis */
-  color: #fff;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); /* Added shadow for better readability */
+  position: relative;
+  font-size: 3.5rem;
+  text-shadow: 3px 3px 6px rgba(255, 255, 255, 0.7);
+  animation: fadeInDown 1s ease-in-out;
 }
 
+@keyframes backgroundFade {
+  from {
+    filter: brightness(0.9);
+  }
+  to {
+    filter: brightness(1.1);
+  }
+}
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mission Section */
 .mission {
-  display: flex;
-  padding: 60px 20px; /* Increased padding for better spacing */
-  background-color: #f2f2f2;
+  background-image: linear-gradient(to right, #2c3e50, #3498db);
+  color: #ffffff;
+  padding: 3rem 0;
+  text-align: center;
 }
 
-.mission-text {
-  flex: 1;
-  padding: 20px;
-  background-color: #4169e1;
-  color: white;
-  border-radius: 10px; /* Rounded corners for the mission text */
+.mission h2 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
 }
 
-.mission-text h2 {
-  font-size: 2rem; /* Increased font size for better readability */
+.mission p {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
 }
 
-.mission-text p {
-  font-size: 1.2rem; /* Increased font size for better readability */
+/* Feature Section */
+.feature {
+  background-color: #181a69;
+  padding: 3rem 0;
+  text-align: center;
 }
 
-.mission-image {
-  flex: 1;
+.feature .feature-item {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 2rem;
 }
 
-.mission-img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 10px; /* Rounded corners for the mission image */
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Added box shadow for depth */
+.feature .feature-item img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-right: 20px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
+.feature .feature-item h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #333;
+}
+
+.feature .feature-item p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #666;
+}
+
+/* Cards Section */
 .cards {
   display: flex;
-  justify-content: space-around;
-  padding: 40px 20px; /* Increased padding for better spacing */
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+  padding: 3rem 0;
 }
 
 .card {
-  background-color: white;
-  border: 1px solid #ddd;
-  padding: 40px;
-  text-align: center;
-  width: 45%;
-  border-radius: 10px; /* Rounded corners for the cards */
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Added box shadow for depth */
+  flex: 1 1 300px;
+  margin: 1rem;
+  padding: 2rem;
+  background-color: #0c0642;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 .card h3 {
-  font-size: 2rem; /* Increased font size for better readability */
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #ffffff;
 }
 
 .card p {
-  font-size: 1.2rem; /* Increased font size for better readability */
+  font-size: 1.2rem;
+  color: #ffffff;
+  line-height: 1.6;
 }
 
+/* Button Styles */
 .btn {
   display: inline-block;
-  padding: 12px 24px;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
   text-decoration: none;
-  color: white;
-  background-color: #28a745;
+  color: #ffffff;
+  background-color: #08293f;
+  border: none;
   border-radius: 5px;
-  font-size: 1.2rem; /* Increased font size for better readability */
+  cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .btn:hover {
-  background-color: #218838; /* Darker shade on hover */
+  background-color: #2980b9;
 }
 
+/* Footer */
 .footer {
-  background-color: #1f2937;
-  color: white;
-  padding: 40px 0;
+  background-color: #343a40;
+  color: #ffffff;
+  padding: 3rem 0;
   text-align: center;
 }
 
-.footer .container {
-  max-width: 1200px;
-  margin: 0 auto;
+.footer p {
+  margin: 0;
 }
 
-.footer .mt-4 {
-  margin-top: 1.5rem;
-}
-
-.footer .footer-link {
-  color: #3b82f6;
-  margin: 0 10px;
-  font-size: 1rem; /* Adjusted font size for footer links */
+.footer-link {
+  color: #ffffff;
+  margin: 0 1rem;
   text-decoration: none;
+  transition: color 0.3s ease;
 }
 
-.footer .footer-link:hover {
-  color: rgba(59, 130, 246, 0.75); /* Semi-transparent color on hover */
+.footer-link:hover {
+  color: #cccccc;
+}
+
+/* Animations */
+@keyframes backgroundFade {
+  from {
+    filter: brightness(0.9);
+  }
+  to {
+    filter: brightness(1.1);
+  }
+}
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

@@ -25,33 +25,34 @@ const HomePage = () => {
             inclusive and engaging sports activities.
           </p>
         </div>
-        <div className="mission-image">
-          <img
-            src=".//home-page1.jpeg"
-            alt="Youth playing sports"
-            className="mission-img"
-          />
-        </div>
       </section>
 
       <section className="cards">
-        <div className="card">
+        <div className='card'>
+        <div className="card2">
           <h3>Enroll Now</h3>
           <p>
             Join our sports programs and start your athletic journey today!
           </p>
-          <Link to="/add-youth" className="btn btn-green">
-            Enroll
+          <Link to="/add-youth">
+          <div className="container">
+            <button className='btn'>Join Us</button>
+            </div>
           </Link>
+          </div>
         </div>
-        <div className="card">
+        <div className='card'>
+        <div className="card2">
           <h3>What We Offer</h3>
           <p>
             Explore our wide range of sports programs and activities.
           </p>
-          <Link to="/Programs" className="btn btn-green">
-            Learn More
+          <div className="container">
+          <Link to="/Programs" className="button">
+            <button className='btn'>Learn More</button>
           </Link>
+          </div>
+          </div>
         </div>
       </section>
 
