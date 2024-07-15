@@ -1,9 +1,9 @@
 from datetime import datetime, timedelta
-from random import randint, sample
-from app import app
-from models import db, Youth, Game, Patron, Enrollment
+from random import randint
+from config import app, db
+from models import Youth, Game, Enrollment, Patron
 
-# Activate app context
+# Create an application context to make Flask-SQLAlchemy work properly
 app.app_context().push()
 
 # Clear existing data
@@ -28,7 +28,6 @@ youths_data = [
     for i in range(10)
 ]
 
-# Add youths to database
 for youth_info in youths_data:
     youth = Youth(**youth_info)
     db.session.add(youth)
@@ -87,7 +86,6 @@ games_data = [
     }
 ]
 
-# Add games to database
 for game_info in games_data:
     game = Game(**game_info)
     db.session.add(game)
@@ -97,28 +95,20 @@ patron_names = [
     "Alice Brown", "Bob Davis", "Carol Wilson", "David Garcia", "Emily Martinez"
 ]
 
-# Add patrons to database
-for patron_name in patron_names:
-    patron_info = {
-        'name': patron_name,
-        'email': f"{patron_name.split()[0].lower()}@vijanagmail.com",
+# Generate patrons
+patrons_data = [
+    {
+        'name': patron_names[i],
+        'email': f"patron{i + 1}@vijanagmail.com",
         'phone_number': f"+2547{randint(10000000, 99999999)}",
-        'image_url': f"https://example.com/{patron_name.split()[0].lower()}.jpg",
+        'image_url': f"https://example.com/patron{i + 1}.jpg",
     }
+    for i in range(5)
+]
+
+for patron_info in patrons_data:
     patron = Patron(**patron_info)
     db.session.add(patron)
-
-# Commit changes to the database
-db.session.commit()
-
-# Assign patrons to games (each patron manages up to 2 games)
-patrons = Patron.query.all()
-games = Game.query.all()
-
-for game in games:
-    random_patron = sample(patrons, k=randint(1, min(2, len(patrons))))  # Up to 2 patrons per game
-    for patron in random_patron:
-        game.patron = patron  # Assign patron to the game
 
 # Commit changes to the database
 db.session.commit()
@@ -126,13 +116,12 @@ db.session.commit()
 # Generate enrollments for youths in games with enrollment date
 for youth_info in youths_data:
     youth = Youth.query.filter_by(name=youth_info['name']).first()
-    if youth:
-        game = Game.query.get(randint(1, len(games)))  # Random game assignment
-        enrollment_date = datetime.now() - timedelta(days=randint(1, 30))
-        enrollment = Enrollment(youth_id=youth.id, game_id=game.id, enrollment_date=enrollment_date)
+    game = Game.query.get(randint(1, len(games_data)))  # Random game assignment
+    if youth and game:
+        enrollment = Enrollment(youth_id=youth.id, game_id=game.id, enrollment_date=datetime.now() - timedelta(days=randint(1, 30)))
         db.session.add(enrollment)
     else:
-        print(f"Skipping enrollment for youth {youth_info['name']} because not found.")
+        print(f"Skipping enrollment for youth {youth_info['name']} or game assignment because not found.")
 
 # Commit enrollment changes to the database
 db.session.commit()
