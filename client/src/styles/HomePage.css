@@ -1,7 +1,7 @@
 .home-page {
   font-family: Arial, sans-serif;
+  background: url('../components/Light\ Low\ Poly\ Diamond\ Background\ Gray\ Color\,\ Wallpaper\,\ Background\,\ Abstract\ Background\ Image\ And\ Wallpaper\ for\ Free\ Download.jpeg')
 }
-
 .header {
   background-color: #1E90FF;
   padding: 10px 20px;
@@ -25,6 +25,7 @@
   height: 400px;
   background: url('../background1.jpg') no-repeat center center;
   background-size: cover;
+
 }
 
 .hero h1 {
@@ -49,7 +50,9 @@
 }
 
 .mission-image {
+  background: url('https://i.pinimg.com/564x/34/fb/66/34fb66337ecda5b00b617af361df0ee6.jpg');
   flex: 1;
+  background-size: cover;
 }
 
 .mission-image img {

@@ -1,8 +1,8 @@
 from datetime import datetime, timedelta
 from random import randint, sample
+import faker
 from app import app
 from models import db, Youth, Game, Patron, Enrollment
-
 # Activate app context
 app.app_context().push()
 

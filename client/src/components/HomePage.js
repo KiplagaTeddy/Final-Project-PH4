@@ -26,12 +26,12 @@ const HomePage = () => {
       <section className="cards">
         <div className="card">
           <h3>Enroll Now</h3>
-          <p>Join our sports programs and start your athletic journey today!</p>
+          <p>Join our sports programs and start your athletic journey today! Whether you're passionate about football, rugby, basketball, baseball, tennis, golf, swimming, cricket, track and field, or volleyball, we offer a variety of engaging opportunities for youth of all ages and skill levels. Our programs are designed to foster teamwork, skill development, and a love for sports in a supportive and inclusive environment. Discover new talents, make lifelong friends, and embrace the thrill of competition while learning valuable lessons in sportsmanship and perseverance. Take the first step towards a healthier and more active lifestyle with our diverse range of athletic offerings. Join us and unleash your potential on the field, court, or track today!</p>
           <Link to="/add-youth" className="btn btn-green">Enroll</Link>
         </div>
         <div className="card">
           <h3>What We Offer</h3>
-          <p>Explore our wide range of sports programs and activities.</p>
+          <p>Explore our wide range of sports programs and activities. From the adrenaline rush of football and rugby to the strategic play of basketball and baseball, there's something for every young athlete eager to excel. Dive into the grace of tennis and golf, or embrace the challenge of swimming, cricket, track and field, and volleyball. Our programs are designed to nurture skills, build confidence, and foster a passion for sportsmanship and teamwork. Whether you're a beginner or a seasoned player, discover endless opportunities to grow, compete, and succeed in our dynamic youth sports community. Join us and ignite your passion for sports today!</p>
           <Link to="/Programs" className="btn btn-green">Learn More</Link>
         </div>
       </section>
