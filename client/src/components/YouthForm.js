@@ -99,22 +99,18 @@ const YouthForm = () => {
       <Navbar />
       <main>
         <form className="youth-form" onSubmit={handleSubmit}>
-          <h2>Register Youth</h2>
+          <h2>Register</h2>
           <label>
-            Name:
-            <input type="text" name="name" value={formData.name} onChange={handleChange} required />
+            <input placeholder='Full Name' type="text" name="name" value={formData.name} onChange={handleChange} required />
           </label>
           <label>
-            Age:
-            <input type="number" name="age" value={formData.age} onChange={handleChange} required />
+            <input placeholder='Age' type="number" name="age" value={formData.age} onChange={handleChange} required />
             {formErrors.age && <span className="error-message">{formErrors.age}</span>}
           </label>
           <label>
-            Email:
-            <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+            <input placeholder='Email Address' type="email" name="email" value={formData.email} onChange={handleChange} required />
           </label>
           <label>
-            Game:
             <select name="game_id" value={formData.game_id} onChange={handleChange} required>
               <option value="">Select a game</option>
               {games.map(game => (
