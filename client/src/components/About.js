@@ -6,7 +6,7 @@ const AboutUs = () => {
 
 
   return (
-    <div className="App">
+    <div className="about-page">
         <Navbar></Navbar>
       <header>
         <h2>About Us</h2>

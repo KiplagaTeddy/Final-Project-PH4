@@ -1,43 +1,61 @@
-  
-  .navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #007bff;
-    padding: 1rem 2rem;
-    z-index: 1000; /* Ensures navbar stays on top */
-    box-sizing: border-box; /* Ensures padding and border are included in width */
-  }
-  
-  .navbar h1 {
-    color: #fff;
-    margin: 0;
-    font-size: 2rem; /* Increased size for better visibility */
-  }
-  
-  .navbar ul {
-    list-style: none;
-    display: flex;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .navbar ul li {
-    margin-left: 1rem;
-  }
-  
-  .navbar ul li  {
-    color: #fff;
-    text-decoration: none;
-    font-size: 1rem; /* Adjusted size for better balance */
-  }
-  
-  .heading {
-    color: #fff;
-    margin: 0;
-    font-size: 2rem; /* Increased size for better visibility */
-  }
+/* Navbar.css */
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #007bff;
+  padding: 1rem 2rem;
+  z-index: 1000; /* Ensures navbar stays on top */
+  box-sizing: border-box; /* Ensures padding and border are included in width */
+  border-bottom: 2px solid transparent; /* Initial transparent border bottom */
+}
+
+.navbar h1 {
+  color: #fff;
+  margin: 0;
+  font-size: 2rem; /* Increased size for better visibility */
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar ul li {
+  margin-left: 1rem;
+}
+
+.navbar ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem; /* Adjusted size for better balance */
+  position: relative; /* Ensure pseudo-element positioning */
+}
+
+.navbar ul li a.active {
+  color: #fff; /* Active link text color */
+}
+
+.navbar ul li a.active::after {
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: -4px; /* Position the line below the link */
+  left: 0;
+  width: 100%;
+  height: 2px; /* Line thickness */
+  background-color: #fff; /* Line color */
+  transition: width 0.3s ease; /* Smooth width transition */
+}
+
+.navbar ul li a:hover {
+  text-decoration: underline; /* Underline on hover */
+}
+

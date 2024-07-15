@@ -3,6 +3,8 @@ import axios from 'axios';
 import '../styles/YouthForm.css'; // Import CSS for styling
 import Navbar from './Navbar';
 
+axios.defaults.baseURL = 'http://localhost:5555'; 
+
 const YouthForm = () => {
   const games = [
     { id: 1, name: 'Football' },
@@ -21,7 +23,6 @@ const YouthForm = () => {
     name: '',
     age: '',
     email: '',
-    image_url: '',
     game_id: '',
   });
 
@@ -52,13 +53,6 @@ const YouthForm = () => {
     }
   };
 
-  const handleFileChange = (e) => {
-    setFormData({
-      ...formData,
-      image_url: e.target.files[0]
-    });
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -68,50 +62,41 @@ const YouthForm = () => {
       return;
     }
 
-    const formDataToSend = new FormData();
-    for (const key in formData) {
-      formDataToSend.append(key, formData[key]);
-    }
-
     // Post request to create youth
-    axios.post('/youths', formDataToSend, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    }).then(response => {
-      console.log('Youth created:', response.data);
-      // Clear the form after youth creation
-      setFormData({
-        name: '',
-        age: '',
-        email: '',
-        image_url: '',
-        game_id: ''
-      });
-
-      // Post request to create enrollment
-      const enrollmentData = {
-        youth_id: response.data.id, // Assuming response.data contains created youth details
-        game_id: formData.game_id
-      };
-
-      axios.post('/enrollments', enrollmentData)
-        .then(enrollmentResponse => {
-          console.log('Enrollment created:', enrollmentResponse.data);
-          // Optionally do something after successful enrollment creation
-        })
-        .catch(enrollmentError => {
-          console.error('Error creating enrollment:', enrollmentError);
+    axios.post('/youths', formData)
+      .then(response => {
+        console.log('Youth created:', response.data);
+        // Clear the form after youth creation
+        setFormData({
+          name: '',
+          age: '',
+          email: '',
+          game_id: ''
         });
 
-    }).catch(error => {
-      console.error('There was an error creating the youth!', error);
-    });
+        // Post request to create enrollment
+        const enrollmentData = {
+          youth_id: response.data.id, 
+          game_id: formData.game_id
+        };
+
+        axios.post('/enrollments', enrollmentData)
+          .then(enrollmentResponse => {
+            console.log('Enrollment created:', enrollmentResponse.data);
+            // Optionally do something after successful enrollment creation
+          })
+          .catch(enrollmentError => {
+            console.error('Error creating enrollment:', enrollmentError);
+          });
+
+      }).catch(error => {
+        console.error('There was an error creating the youth!', error);
+      });
   };
 
   return (
     <div className="youth-form-container">
-      <Navbar></Navbar>
+      <Navbar />
       <main>
         <form className="youth-form" onSubmit={handleSubmit}>
           <h2>Register Youth</h2>
@@ -136,10 +121,6 @@ const YouthForm = () => {
                 <option key={game.id} value={game.id}>{game.name}</option>
               ))}
             </select>
-          </label>
-          <label>
-            Image:
-            <input type="file" name="image_url" onChange={handleFileChange} />
           </label>
           <button type="submit">Register</button>
         </form>

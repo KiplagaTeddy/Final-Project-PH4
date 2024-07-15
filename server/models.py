@@ -1,6 +1,6 @@
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.associationproxy import association_proxy
-from config import db
+from config import db  # Import db after it's been instantiated
 
 class Youth(db.Model, SerializerMixin):
     __tablename__ = 'youths'
@@ -10,7 +10,7 @@ class Youth(db.Model, SerializerMixin):
     age = db.Column(db.Integer, nullable=False)
     email = db.Column(db.String, unique=True, nullable=False)
     password = db.Column(db.String)
-    image_url = db.Column(db.String)
+   
 
     enrollments = db.relationship('Enrollment', backref='youth', lazy=True)
     games = association_proxy('enrollments', 'game')
@@ -57,7 +57,7 @@ class Patron(db.Model, SerializerMixin):
     name = db.Column(db.String, nullable=False)
     email = db.Column(db.String, unique=True, nullable=False)
     phone_number = db.Column(db.String, nullable=False)
-    image_url = db.Column(db.String)
+    
 
     serialize_rules = ('-games',)
 

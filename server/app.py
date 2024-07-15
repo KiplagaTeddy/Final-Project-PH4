@@ -1,17 +1,18 @@
 #!/usr/bin/env python3
 
-import bcrypt
 from flask import Flask, request, jsonify
 from flask_restful import Resource, Api
-from flask_cors import CORS
 from flask_migrate import Migrate
-from models import db, Youth, Game, Enrollment, Patron
+from models import db, Youth, Game, Enrollment, Patron  # Make sure to import all relevant models
+from flask_cors import CORS
+from datetime import datetime
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-CORS(app, resources={r"/*": {"origins": "*"}})
+CORS(app)
+
 db.init_app(app)
 migrate = Migrate(app, db)
 
@@ -37,13 +38,15 @@ class YouthResource(Resource):
         youth = Youth(
             name=data.get('name'),
             age=data.get('age'),
-            email=data.get('email'),
-            image_url=data.get('image_url'),
-            game_id=data.get('game_id')
+            email=data.get('email')
         )
-        db.session.add(youth)
-        db.session.commit()
-        return youth.to_dict(), 201
+        try:
+            db.session.add(youth)
+            db.session.commit()
+            return youth.to_dict(), 201
+        except Exception as e:
+            db.session.rollback()
+            return {'error': str(e)}, 400
 
     def put(self, youth_id):
         data = request.get_json()
@@ -52,18 +55,25 @@ class YouthResource(Resource):
             youth.name = data.get('name', youth.name)
             youth.age = data.get('age', youth.age)
             youth.email = data.get('email', youth.email)
-            youth.image_url = data.get('image_url', youth.image_url)
-            youth.game_id = data.get('game_id', youth.game_id)
-            db.session.commit()
-            return youth.to_dict(), 200
+            try:
+                db.session.commit()
+                return youth.to_dict(), 200
+            except Exception as e:
+                db.session.rollback()
+                return {'error': str(e)}, 400
         return {'error': 'Youth not found'}, 404
 
     def delete(self, youth_id):
         youth = Youth.query.get(youth_id)
         if youth:
-            db.session.delete(youth)
-            db.session.commit()
-            return {'message': 'Youth deleted'}, 200
+            try:
+                Enrollment.query.filter_by(youth_id=youth_id).delete()
+                db.session.delete(youth)
+                db.session.commit()
+                return {'message': 'Youth deleted'}, 200
+            except Exception as e:
+                db.session.rollback()
+                return {'error': str(e)}, 400
         return {'error': 'Youth not found'}, 404
 
 class GameResource(Resource):
@@ -81,13 +91,15 @@ class GameResource(Resource):
         game = Game(
             name=data.get('name'),
             description=data.get('description'),
-            patron_id=data.get('patron_id'),
-            image_url=data.get('image_url'),
-            youth_id=data.get('youth_id')
+            patron_id=data.get('patron_id')
         )
-        db.session.add(game)
-        db.session.commit()
-        return game.to_dict(), 201
+        try:
+            db.session.add(game)
+            db.session.commit()
+            return game.to_dict(), 201
+        except Exception as e:
+            db.session.rollback()
+            return {'error': str(e)}, 400
 
     def put(self, game_id):
         data = request.get_json()
@@ -96,18 +108,24 @@ class GameResource(Resource):
             game.name = data.get('name', game.name)
             game.description = data.get('description', game.description)
             game.patron_id = data.get('patron_id', game.patron_id)
-            game.image_url = data.get('image_url', game.image_url)
-            game.youth_id = data.get('youth_id', game.youth_id)
-            db.session.commit()
-            return game.to_dict(), 200
+            try:
+                db.session.commit()
+                return game.to_dict(), 200
+            except Exception as e:
+                db.session.rollback()
+                return {'error': str(e)}, 400
         return {'error': 'Game not found'}, 404
 
     def delete(self, game_id):
         game = Game.query.get(game_id)
         if game:
-            db.session.delete(game)
-            db.session.commit()
-            return {'message': 'Game deleted'}, 200
+            try:
+                db.session.delete(game)
+                db.session.commit()
+                return {'message': 'Game deleted'}, 200
+            except Exception as e:
+                db.session.rollback()
+                return {'error': str(e)}, 400
         return {'error': 'Game not found'}, 404
 
 class EnrollmentResource(Resource):
@@ -126,9 +144,13 @@ class EnrollmentResource(Resource):
             youth_id=data.get('youth_id'),
             game_id=data.get('game_id')
         )
-        db.session.add(enrollment)
-        db.session.commit()
-        return enrollment.to_dict(), 201
+        try:
+            db.session.add(enrollment)
+            db.session.commit()
+            return enrollment.to_dict(), 201
+        except Exception as e:
+            db.session.rollback()
+            return {'error': str(e)}, 400
 
     def put(self, enrollment_id):
         data = request.get_json()
@@ -136,16 +158,24 @@ class EnrollmentResource(Resource):
         if enrollment:
             enrollment.youth_id = data.get('youth_id', enrollment.youth_id)
             enrollment.game_id = data.get('game_id', enrollment.game_id)
-            db.session.commit()
-            return enrollment.to_dict(), 200
+            try:
+                db.session.commit()
+                return enrollment.to_dict(), 200
+            except Exception as e:
+                db.session.rollback()
+                return {'error': str(e)}, 400
         return {'error': 'Enrollment not found'}, 404
 
     def delete(self, enrollment_id):
         enrollment = Enrollment.query.get(enrollment_id)
         if enrollment:
-            db.session.delete(enrollment)
-            db.session.commit()
-            return {'message': 'Enrollment deleted'}, 200
+            try:
+                db.session.delete(enrollment)
+                db.session.commit()
+                return {'message': 'Enrollment deleted'}, 200
+            except Exception as e:
+                db.session.rollback()
+                return {'error': str(e)}, 400
         return {'error': 'Enrollment not found'}, 404
 
 class PatronResource(Resource):
@@ -163,12 +193,15 @@ class PatronResource(Resource):
         patron = Patron(
             name=data.get('name'),
             email=data.get('email'),
-            phone_number=data.get('phone_number'),
-            image_url=data.get('image_url')
+            phone_number=data.get('phone_number')
         )
-        db.session.add(patron)
-        db.session.commit()
-        return patron.to_dict(), 201
+        try:
+            db.session.add(patron)
+            db.session.commit()
+            return patron.to_dict(), 201
+        except Exception as e:
+            db.session.rollback()
+            return {'error': str(e)}, 400
 
     def put(self, patron_id):
         data = request.get_json()
@@ -177,23 +210,59 @@ class PatronResource(Resource):
             patron.name = data.get('name', patron.name)
             patron.email = data.get('email', patron.email)
             patron.phone_number = data.get('phone_number', patron.phone_number)
-            patron.image_url = data.get('image_url', patron.image_url)
-            db.session.commit()
-            return patron.to_dict(), 200
+            try:
+                db.session.commit()
+                return patron.to_dict(), 200
+            except Exception as e:
+                db.session.rollback()
+                return {'error': str(e)}, 400
         return {'error': 'Patron not found'}, 404
 
     def delete(self, patron_id):
         patron = Patron.query.get(patron_id)
         if patron:
-            db.session.delete(patron)
-            db.session.commit()
-            return {'message': 'Patron deleted'}, 200
+            try:
+                db.session.delete(patron)
+                db.session.commit()
+                return {'message': 'Patron deleted'}, 200
+            except Exception as e:
+                db.session.rollback()
+                return {'error': str(e)}, 400
         return {'error': 'Patron not found'}, 404
+
+class EnrollmentDetails(Resource):
+    def get(self):
+        # Join Youth, Game, and Enrollment tables
+        results = db.session.query(
+            Enrollment.id.label('enrollment_id'),
+            Youth.name.label('youth_name'),
+            Youth.age.label('youth_age'),
+            Youth.email.label('youth_email'),
+            Game.id.label('game_id'),
+            Game.name.label('game_name'),
+            Enrollment.enrollment_date.label('enrollment_date')
+        ).join(Youth, Enrollment.youth_id == Youth.id)\
+         .join(Game, Enrollment.game_id == Game.id).all()
+
+        enrollment_details = []
+        for result in results:
+            enrollment_details.append({
+                'enrollment_id': result.enrollment_id,
+                'youth_name': result.youth_name,
+                'youth_age': result.youth_age,
+                'youth_email': result.youth_email,
+                'game_id': result.game_id,
+                'game_name': result.game_name,
+                'enrollment_date': result.enrollment_date.strftime('%Y-%m-%d') if result.enrollment_date else None
+            })
+
+        return jsonify(enrollment_details)
 
 api.add_resource(YouthResource, '/youths', '/youths/<int:youth_id>')
 api.add_resource(GameResource, '/games', '/games/<int:game_id>')
 api.add_resource(EnrollmentResource, '/enrollments', '/enrollments/<int:enrollment_id>')
 api.add_resource(PatronResource, '/patrons', '/patrons/<int:patron_id>')
+api.add_resource(EnrollmentDetails, '/enrollment_details')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
