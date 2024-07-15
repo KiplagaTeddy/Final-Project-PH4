@@ -1,18 +1,39 @@
 import React from 'react';
-// import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom'; // Using NavLink for active link styling
+import '../styles/Navbar.css'; // Import CSS for styling
 
 function Navbar() {
   return (
     <nav className="navbar">
-        <h1>Vijana Sports System</h1>
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/programs">Programs</a></li>
-          <li><a href="/add-youth">Enroll</a></li>
-          <li><a href="/youths">Youth List</a></li>
-          <li><a href="/about">About</a></li>
-        </ul>
-      </nav>
+      <h1>Vijana Sports System</h1>
+      <ul>
+        <li>
+          <NavLink exact to="/" activeClassName="active">
+            Home
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/programs" activeClassName="active">
+            Programs
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/add-youth" activeClassName="active">
+            Enroll
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/youths" activeClassName="active">
+            Youth List
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/about" activeClassName="active">
+            About
+          </NavLink>
+        </li>
+      </ul>
+    </nav>
   );
 }
 

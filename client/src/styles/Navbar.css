@@ -12,6 +12,7 @@
   padding: 1rem 2rem;
   z-index: 1000; /* Ensures navbar stays on top */
   box-sizing: border-box; /* Ensures padding and border are included in width */
+  border-bottom: 2px solid transparent; /* Initial transparent border bottom */
 }
 
 .navbar h1 {
@@ -35,4 +36,26 @@
   color: #fff;
   text-decoration: none;
   font-size: 1rem; /* Adjusted size for better balance */
+  position: relative; /* Ensure pseudo-element positioning */
 }
+
+.navbar ul li a.active {
+  color: #fff; /* Active link text color */
+}
+
+.navbar ul li a.active::after {
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: -4px; /* Position the line below the link */
+  left: 0;
+  width: 100%;
+  height: 2px; /* Line thickness */
+  background-color: #fff; /* Line color */
+  transition: width 0.3s ease; /* Smooth width transition */
+}
+
+.navbar ul li a:hover {
+  text-decoration: underline; /* Underline on hover */
+}
+
