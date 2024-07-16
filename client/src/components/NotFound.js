@@ -1,6 +1,11 @@
+import React from "react";
+import Navbar from "./Navbar";
 
 function NotFound(){
-    return
+    return(
+        <Navbar />
+        
+    )
 }
 
 export default NotFound

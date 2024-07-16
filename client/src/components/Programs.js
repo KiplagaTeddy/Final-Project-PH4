@@ -2,6 +2,7 @@ import React from 'react';
 import '../styles/Program.css';
 import { Link } from 'react-router-dom';
 import Navbar from './Navbar';
+import Footer from './Footer';
 
 const App = () => {
   const games = [
@@ -79,7 +80,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <Navbar></Navbar>
+      <Navbar />
       <header>
         <h2 className='t-header'>Select a Sport and Enroll Now</h2>
       </header>
@@ -96,16 +97,10 @@ const App = () => {
           </div>
         ))}
       </div>
-      <footer>
-        <p>© 2024 Youth Sports. All rights reserved.</p>
-        <ul>
-          <li><a href="/https://github.com/KiplagaTeddy/Final-Project-PH4">Privacy Policy</a></li>
-          <li><a href="/https://github.com/KiplagaTeddy/Final-Project-PH4">Terms of Service</a></li>
-          <li><a href="https://github.com/KiplagaTeddy/Final-Project-PH4">Contact Us</a></li>
-        </ul>
-      </footer>
+      <Footer />
     </div>
   );
 };
 
 export default App;
+

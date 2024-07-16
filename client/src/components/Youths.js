@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../styles/Youths.css';
 import Navbar from './Navbar';
 
+
 function Youths() {
   const [youths, setYouths] = useState([]);
   const [filteredYouths, setFilteredYouths] = useState([]);
@@ -127,6 +128,7 @@ function Youths() {
         ))}
       </div>
     </div>
+
   );
 }
 

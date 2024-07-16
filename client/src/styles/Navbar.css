@@ -67,8 +67,6 @@
   transition: width 0.3s ease; /* Smooth width transition */
 }
 
-
-
 /* width */
 ::-webkit-scrollbar {
   width: 13px;

@@ -1,13 +1,12 @@
 import React from "react";
-import '../styles/Program.css'; // Ensure the path to your CSS file is correct
 import Navbar from "./Navbar";
 import '../styles/About.css';
-
+import Footer from "./Footer";
 
 const AboutUs = () => {
   return (
     <div className="about-page">
-        <Navbar></Navbar>
+        <Navbar />
       
       <div className="about-container">
       
@@ -26,14 +25,7 @@ const AboutUs = () => {
 </p>
 
       </div>
-      <footer>
-        <p>© 2024 Youth Sports. All rights reserved.</p>
-        <ul>
-          <li><a href="https://github.com/KiplagaTeddy/Final-Project-PH4">Privacy Policy</a></li>
-          <li><a href="https://github.com/KiplagaTeddy/Final-Project-PH4">Terms of Service</a></li>
-          <li><a href="https://github.com/KiplagaTeddy/Final-Project-PH4">Contact Us</a></li>
-        </ul>
-      </footer>
+      <Footer />
     </div>
   );
 };

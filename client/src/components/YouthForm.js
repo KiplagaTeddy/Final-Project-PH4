@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import '../styles/YouthForm.css'; // Import CSS for styling
 import Navbar from './Navbar';
+import Footer from './Footer';
 
 axios.defaults.baseURL = 'http://localhost:5555'; 
 
@@ -121,14 +122,7 @@ const YouthForm = () => {
           <button type="submit">Register</button>
         </form>
       </main>
-      <footer>
-        <p>© 2024 Youth Sports. All rights reserved.</p>
-        <ul>
-          <li><a href="https://github.com/KiplagaTeddy/Final-Project-PH4">Privacy Policy</a></li>
-          <li><a href="https://github.com/KiplagaTeddy/Final-Project-PH4">Terms of Service</a></li>
-          <li><a href="https://github.com/KiplagaTeddy/Final-Project-PH4">Contact Us</a></li>
-        </ul>
-      </footer>
+      <Footer />
     </div>
   );
 };

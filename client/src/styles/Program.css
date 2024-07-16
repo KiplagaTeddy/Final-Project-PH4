@@ -104,37 +104,3 @@ header h2 {
   background-color: #357ebd;
 }
 
-.footer {
-  margin-top: 40px;
-  text-align: center;
-  padding: 20px;
-  background-color: #333;
-  color: #fff;
-  width:100%;
-}
-
-.footer p {
-  margin: 0;
-  font-size: 0.9em;
-}
-
-.footer ul {
-  list-style-type: none;
-  padding: 0;
-  margin-top: 10px;
-}
-
-.footer ul li {
-  display: inline-block;
-  margin-right: 10px;
-}
-
-.footer ul li a {
-  color: #fff;
-  text-decoration: none;
-  font-size: 0.9em;
-}
-
-.footer ul li a:hover {
-  text-decoration: underline;
-}

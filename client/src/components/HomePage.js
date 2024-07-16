@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/HomePage.css'; // Import CSS for styling
 import Navbar from './Navbar';
-
+import Footer from './Footer';
 
 const HomePage = () => {
   return (
@@ -55,32 +55,7 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-
-      <footer className="footer">
-        <div className="container mx-auto">
-          <p>© 2024 YouthSports. All rights reserved.</p>
-          <div className="mt-4">
-            <a
-              href="https://github.com/KiplagaTeddy/Final-Project-PH4"
-              className="footer-link"
-            >
-              Privacy Policy
-            </a>
-            <a
-              href="https://github.com/KiplagaTeddy/Final-Project-PH4"
-              className="footer-link"
-            >
-              Terms of Service
-            </a>
-            <a
-              href="https://github.com/KiplagaTeddy/Final-Project-PH4"
-              className="footer-link"
-            >
-              Contact Us
-            </a>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

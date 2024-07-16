@@ -6,13 +6,13 @@ body {
   }  
   /* Header styles */
   .about {
-  font-family: "Playfair Display", serif;
-  font-size: 3.5em;
-  color: rgb(240, 255, 255);
-  text-decoration: underline;
-  text-decoration-thickness: 4%;
+    font-family: "Playfair Display", serif;
+    font-size: 3.5em;
+    color: rgb(240, 255, 255);
+    text-decoration: underline;
+    text-decoration-thickness: 4%;
     text-align: center;
-    font-size: 13rem;
+    font-size: 9rem;
     margin-top:7%;
     margin-bottom:-3%;
   }
