@@ -1,45 +1,17 @@
 /* Reset and basic styles */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-  }
-  
-  /* Navbar styles */
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #007bff;
-    padding: 1rem 2rem;
-  }
-  
-  .navbar h1 {
-    color: #fff;
-    margin: 0;
-  }
-  
-  .navbar ul {
-    list-style: none;
-    display: flex;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .navbar ul li {
-    margin-left: 1rem;
-  }
-  
-  .navbar ul li a {
-    color: #fff;
-    text-decoration: none;
-  }
-  
+  }  
   /* Header styles */
-  header {
+  .about {
+  font-family: "Playfair Display", serif;
+  font-size: 3.5em;
+  color: rgb(240, 255, 255);
     text-align: center;
-    padding: 2rem 0;
+    font-size: 8rem;
+    margin-top:7%;
   }
   
   /* About section styles */
@@ -49,11 +21,19 @@ body {
   }
   
   .about-container p {
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    font-size: 1.3rem;
+    font-style: normal;
     margin-bottom: 1.5rem;
   }
   
   .about-container strong {
-    font-weight: bold;
+  font-family: "Tangerine", cursive;
+  font-weight: 400;
+  font-size: 4rem;
+  font-style: normal;
+  font-weight: bold;
   }
   
   /* Footer styles */
@@ -83,6 +63,3 @@ body {
   footer ul li a:hover {
     text-decoration: underline;
   }
-.about-container{
-  margin-top: 80px;
-}

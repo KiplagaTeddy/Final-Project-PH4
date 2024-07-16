@@ -81,7 +81,7 @@ const App = () => {
     <div className="App">
       <Navbar></Navbar>
       <header>
-        <h2>Select a Sport and Enroll Now</h2>
+        <h2 className='t-header'>Select a Sport and Enroll Now</h2>
       </header>
       <div className="card-container">
         {games.map(game => (

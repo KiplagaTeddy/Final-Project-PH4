@@ -1,17 +1,18 @@
 import React from "react";
 import '../styles/Program.css'; // Ensure the path to your CSS file is correct
 import Navbar from "./Navbar";
+import '../styles/About.css';
+
 
 const AboutUs = () => {
-
-
   return (
     <div className="about-page">
         <Navbar></Navbar>
-      <header>
-        <h2>About Us</h2>
-      </header>
+      
       <div className="about-container">
+      
+        <h2 className="about">About Us</h2>
+
       <p>
   <strong>Our Objective:</strong> Vijana Sports System is a full-stack web application designed to streamline youth program management. Using a Flask backend and a React frontend, the platform provides an intuitive experience for managing youth enrollments in various programs. The system facilitates easy communication between patrons, youths, and program administrators, enhancing the overall engagement and effectiveness of youth enrichment initiatives.
 </p>

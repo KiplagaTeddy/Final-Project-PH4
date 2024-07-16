@@ -75,9 +75,11 @@ footer a:hover {
 }
 
 .youth-form h2 {
+  font-family: "Playfair Display", serif;
   text-align: center;
+  margin-top:8px;
   margin-bottom: 1.5rem;
-  font-size: 2rem;
+  font-size: 3rem;
   color: #4c6ef5;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
@@ -124,13 +126,16 @@ footer a:hover {
 
 /* Button Styles */
 .youth-form button {
+  font-family: "PT Sans Caption", sans-serif;
+  font-weight: 700;
+  font-style: normal;
   width: 100%;
   padding: 1rem;
   background: linear-gradient(45deg, #2c3e50, #4c6ef5);
   border: none;
   border-radius: 5px;
   color: white;
-  font-size: 1.2rem;
+  font-size: 1.9rem;
   font-weight: bold;
   cursor: pointer;
   transition: background 0.3s ease, box-shadow 0.3s ease;

@@ -55,17 +55,17 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(91, 85, 139, 0.5); /* Dark overlay */
+  background: rgba(91, 85, 139, 0.4); /* Dark overlay */
 }
 
 .hero-heading {
-  font-family: "Bebas Neue", sans-serif;
-  font-weight: 400;
+  font-family: "Sofia", cursive;
+  font-weight: 500;
   font-style: normal;
-  position: relative;
+  color:rgb(0, 0, 0);
   font-size: 5.5rem;
   text-shadow: 3px 3px 6px rgba(255, 255, 255, 0.7);
-  animation: fadeInDown 1s ease-in-out;
+  animation: fadeInDown 2s ease-in-out;
 }
 
 @keyframes backgroundFade {
@@ -73,14 +73,14 @@ body {
     filter: brightness(0.9);
   }
   to {
-    filter: brightness(1.1);
+    filter: brightness(1.9);
   }
 }
 
 @keyframes fadeInDown {
   0% {
     opacity: 0;
-    transform: translateY(-50px);
+    transform: translateY(-60px);
   }
   100% {
     opacity: 1;
@@ -92,18 +92,25 @@ body {
 .mission {
   background-image: linear-gradient(to right, #2c3e50, #3498db);
   color: #ffffff;
-  padding: 3rem 0;
+  padding: 4rem 0;
   text-align: center;
 }
 
 .mission h2 {
-  font-size: 3rem;
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  position: relative;
+  font-size: 5.4rem;
   margin-bottom: 1rem;
   font-weight: 700;
 }
 
 .mission p {
-  font-size: 1.5rem;
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 1.7rem;
   margin-bottom: 2rem;
 }
 
@@ -167,14 +174,20 @@ body {
 }
 
 .card h3 {
-  font-size: 1.9rem;
-  font-weight: 700;
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 500;
+  font-style: Normal;
+  position: relative;
+  font-size: 2.3rem;
   margin-bottom: 1rem;
   color: rgb(48, 25, 52);
 }
 
 .card p {
-  font-size: 1.5rem;
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 1.6rem;
   color: rgb(81, 65, 79);
   line-height: 1.6;
   font-family: "Trebuchet MS", Tahoma, sans-serif;

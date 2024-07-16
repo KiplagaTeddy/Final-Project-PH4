@@ -1,5 +1,6 @@
 /* Program.css */
 
+
 /* Body and general styles */
 body {
   font-family: 'Roboto', sans-serif;
@@ -17,12 +18,13 @@ body {
 header {
   text-align: center;
   margin-bottom: 30px;
-  margin-top: 8%;
+  margin-top: 13%;
 }
 
 header h2 {
+  font-family: "Playfair Display", serif;
   font-size: 3.5em;
-  color: rgb(207, 159, 255);
+  color: rgb(240, 255, 255);
   /* font-family: Arial, Helvetica, sans-serif; */
 }
 
@@ -58,14 +60,25 @@ header h2 {
 .card-content {
   padding: 20px;
 }
+<uniquifier>: t-header
+<weight>: 500
 
+.playfair-display-uniquifier {
+  font-family: "Playfair Display", serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}
 .card-content h3 {
   color: #4a90e2;
-  font-size: 1.8em;
+  font-size: 3em;
 }
 
 .card-content p {
-  color: #666;
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  color: rgb(0, 0, 0);
   font-size: 1.1em;
   line-height: 1.6;
 }
@@ -77,6 +90,7 @@ header h2 {
 }
 
 .btn {
+  
   display: inline-block;
   padding: 12px 24px;
   background-color: #4a90e2;
@@ -96,6 +110,7 @@ header h2 {
   padding: 20px;
   background-color: #333;
   color: #fff;
+  width:100%;
 }
 
 .footer p {

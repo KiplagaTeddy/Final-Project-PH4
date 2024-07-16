@@ -51,7 +51,8 @@
 }
 
 .navbar ul li a.active {
-  color: #fff; /* Active link text color */
+  color: #007bff ; /* Active link text color */
+
 }
 
 .navbar ul li a.active::after {
