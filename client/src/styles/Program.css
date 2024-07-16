@@ -17,7 +17,7 @@ body {
 header {
   text-align: center;
   margin-bottom: 30px;
-  margin-top:8%;
+  margin-top: 8%;
 }
 
 header h2 {
@@ -29,7 +29,7 @@ header h2 {
 .card-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); /* Adjusted column width */
-  gap: 20px;
+  gap: 100px;
 }
 
 .card {
@@ -38,17 +38,21 @@ header h2 {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
 }
 
 .card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-10px);
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
 }
 
 .card img {
-  width: 100%;
-  height: auto;
-  border-radius: 15px 15px 0 0;
+  width: 614px;
+  max-height: 300px;
+  margin:-32px;
+  object-fit: cover; /* Ensures the image is not stretched */
+  display: block; /* Ensures the image is treated as a block element */
+  border-radius: 15px 15px 0 0; /* Only rounds the top corners */
 }
 
 .card-content {
@@ -58,7 +62,6 @@ header h2 {
 .card-content h3 {
   color: #4a90e2;
   font-size: 1.8em;
-  margin-bottom: 10px;
 }
 
 .card-content p {
