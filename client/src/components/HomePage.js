@@ -32,7 +32,7 @@ const HomePage = () => {
         <div className="card2">
           <h3>Enroll Now</h3>
           <p>
-            Join our sports programs and start your athletic journey today!
+            Wait no more. Join us and foster your athletic journey today! Game on.
           </p>
           <Link to="/add-youth">
           <div className="container">
@@ -45,7 +45,7 @@ const HomePage = () => {
         <div className="card2">
           <h3>What We Offer</h3>
           <p>
-            Explore our wide range of sports programs and activities.
+            Explore our wide range of sports programs and activities and fulfil your dreams.
           </p>
           <div className="container">
           <Link to="/Programs" className="button">

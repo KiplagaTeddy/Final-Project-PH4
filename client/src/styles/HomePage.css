@@ -5,7 +5,7 @@
 
 /* Global Styles */
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto';
   margin: 0;
   padding: 0;
   background-color: #ffffff;
@@ -59,8 +59,11 @@ body {
 }
 
 .hero-heading {
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 400;
+  font-style: normal;
   position: relative;
-  font-size: 3.5rem;
+  font-size: 5.5rem;
   text-shadow: 3px 3px 6px rgba(255, 255, 255, 0.7);
   animation: fadeInDown 1s ease-in-out;
 }
@@ -164,16 +167,17 @@ body {
 }
 
 .card h3 {
-  font-size: 1.5rem;
+  font-size: 1.9rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  color: #ffffff;
+  color: rgb(48, 25, 52);
 }
 
 .card p {
-  font-size: 1.2rem;
-  color: #ffffff;
+  font-size: 1.5rem;
+  color: rgb(81, 65, 79);
   line-height: 1.6;
+  font-family: "Trebuchet MS", Tahoma, sans-serif;
 }
 
 /* Button Styles */
@@ -250,3 +254,4 @@ body {
     transform: translateY(0);
   }
 }
+

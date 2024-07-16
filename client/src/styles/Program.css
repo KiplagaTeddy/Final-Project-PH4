@@ -17,11 +17,13 @@ body {
 header {
   text-align: center;
   margin-bottom: 30px;
+  margin-top:8%;
 }
 
 header h2 {
-  font-size: 2.5em;
-  color: #333;
+  font-size: 3.5em;
+  color: rgb(207, 159, 255);
+  /* font-family: Arial, Helvetica, sans-serif; */
 }
 
 .card-container {

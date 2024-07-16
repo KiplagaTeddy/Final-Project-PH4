@@ -6,19 +6,26 @@
   left: 0;
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start; /* Align items to the start */
   align-items: center;
-  background-color: #007bff;
+  background-color: #4169E1	;
   padding: 1rem 2rem;
   z-index: 1000; /* Ensures navbar stays on top */
   box-sizing: border-box; /* Ensures padding and border are included in width */
   border-bottom: 2px solid transparent; /* Initial transparent border bottom */
 }
 
+.navbar svg {
+  margin-right: 1rem; /* Space between SVG and text */
+}
+
 .navbar h1 {
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 100;
+  font-style: normal;
   color: #fff;
   margin: 0;
-  font-size: 2rem; /* Increased size for better visibility */
+  font-size: 3rem; /* Increased size for better visibility */
 }
 
 .navbar ul {
@@ -26,16 +33,20 @@
   display: flex;
   margin: 0;
   padding: 0;
+  margin-left: auto; /* Push the list to the far right */
 }
 
 .navbar ul li {
   margin-left: 1rem;
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 50;
+  font-style: normal;
+  font-size: 2rem;
 }
 
 .navbar ul li a {
   color: #fff;
   text-decoration: none;
-  font-size: 1rem; /* Adjusted size for better balance */
   position: relative; /* Ensure pseudo-element positioning */
 }
 
@@ -55,7 +66,24 @@
   transition: width 0.3s ease; /* Smooth width transition */
 }
 
-.navbar ul li a:hover {
-  text-decoration: underline; /* Underline on hover */
+
+
+/* width */
+::-webkit-scrollbar {
+  width: 13px;
 }
 
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

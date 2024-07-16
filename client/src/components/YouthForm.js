@@ -99,7 +99,7 @@ const YouthForm = () => {
       <Navbar />
       <main>
         <form className="youth-form" onSubmit={handleSubmit}>
-          <h2>Register</h2>
+          <h2>Register Youth</h2>
           <label>
             <input placeholder='Full Name' type="text" name="name" value={formData.name} onChange={handleChange} required />
           </label>
