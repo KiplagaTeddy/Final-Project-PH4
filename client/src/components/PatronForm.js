@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
-import '../styles/PatronForm.css'; // Correct path and name
+import '../styles/PatronForm.css';
 
 axios.defaults.baseURL = 'http://localhost:5555';
 
@@ -11,7 +11,7 @@ const PatronForm = () => {
     name: '',
     email: '',
     phone: '',
-    role: ''  // Added role field
+    role: '' 
   });
 
   const handleChange = (e) => {
