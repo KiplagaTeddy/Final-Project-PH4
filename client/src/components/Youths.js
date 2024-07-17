@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import '../styles/Youths.css';
 import Navbar from './Navbar';
 
-
 function Youths() {
   const [youths, setYouths] = useState([]);
   const [filteredYouths, setFilteredYouths] = useState([]);
   const [ageFilter, setAgeFilter] = useState('');
   const [sortOrder, setSortOrder] = useState('asc');
+  const [isEditing, setIsEditing] = useState(false);
+  const [currentYouth, setCurrentYouth] = useState({ id: null, name: '', email: '', age: '' });
 
   useEffect(() => {
     fetch('http://localhost:5555/youths')
@@ -23,34 +24,6 @@ function Youths() {
       })
       .catch(error => console.error('Error fetching youths:', error));
   }, []);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const updatedYouths = await Promise.all(
-        youths.map(async youth => {
-          const enrollmentDetails = await fetchEnrollmentDetails(youth.id);
-          return { ...youth, enrollmentDetails };
-        })
-      );
-      setFilteredYouths(updatedYouths);
-    };
-
-    fetchData();
-  }, [youths]); // Dependency array to rerun effect when youths change
-
-  const fetchEnrollmentDetails = async (youthId) => {
-    try {
-      const response = await fetch(`http://localhost:5555/enrollment_details?youth_id=${youthId}`);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const enrollmentDetails = await response.json();
-      return enrollmentDetails;
-    } catch (error) {
-      console.error(`Error fetching enrollment details for youth ${youthId}:`, error);
-      return { enrollment_date: null, game_name: null }; // Return default values or handle error
-    }
-  };
 
   const handleDelete = (id) => {
     console.log(`Attempting to delete youth with id: ${id}`);
@@ -99,6 +72,46 @@ function Youths() {
     setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
   };
 
+  const handleEdit = (youth) => {
+    setCurrentYouth(youth);
+    setIsEditing(true);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setCurrentYouth(prevYouth => ({ ...prevYouth, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    fetch(`http://localhost:5555/youths/${currentYouth.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(currentYouth)
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(updatedYouth => {
+      const updatedYouths = youths.map(youth => 
+        youth.id === updatedYouth.id ? updatedYouth : youth
+      );
+      setYouths(updatedYouths);
+      setFilteredYouths(updatedYouths);
+      setIsEditing(false);
+      console.log(`Youth with id ${updatedYouth.id} updated successfully`);
+    })
+    .catch(error => {
+      console.error('Error updating youth:', error);
+      alert(`Error updating youth: ${error.message}`);
+    });
+  };
+
   return (
     <div className="youths-page">
       <Navbar />
@@ -121,14 +134,42 @@ function Youths() {
             <h2>{youth.name}</h2>
             <p>Email: {youth.email}</p>
             <p>Age: {youth.age}</p>
-            {/* <p>Enrollment Date: {youth.enrollmentDetails ? youth.enrollmentDetails.enrollment_date : '-'}</p>
-            <p>Game: {youth.enrollmentDetails ? youth.enrollmentDetails.game_name : '-'}</p> */}
+            <button onClick={() => handleEdit(youth)} className="edit">Edit Youth</button>
             <button onClick={() => handleDelete(youth.id)} className="delete">Delete Youth</button>
           </div>
         ))}
       </div>
+      {isEditing && (
+        <div className="edit-form">
+          <h2>Edit Youth</h2>
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              name="name"
+              placeholder="Name"
+              value={currentYouth.name}
+              onChange={handleChange}
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={currentYouth.email}
+              onChange={handleChange}
+            />
+            <input
+              type="number"
+              name="age"
+              placeholder="Age"
+              value={currentYouth.age}
+              onChange={handleChange}
+            />
+            <button type="submit">Save Changes</button>
+            <button type="button" onClick={() => setIsEditing(false)}>Cancel</button>
+          </form>
+        </div>
+      )}
     </div>
-
   );
 }
 
