@@ -119,8 +119,8 @@ function Youths() {
         {filteredYouths.map(youth => (
           <div key={youth.id} className="youth-card">
             <h2>{youth.name}</h2>
-            <p>Email: {youth.email}</p>
-            <p>Age: {youth.age}</p>
+            <p><strong>Email: </strong>{youth.email}</p>
+            <p><strong>Age:</strong> {youth.age} years</p>
             {/* <p>Enrollment Date: {youth.enrollmentDetails ? youth.enrollmentDetails.enrollment_date : '-'}</p>
             <p>Game: {youth.enrollmentDetails ? youth.enrollmentDetails.game_name : '-'}</p> */}
             <button onClick={() => handleDelete(youth.id)} className="delete">Delete Youth</button>

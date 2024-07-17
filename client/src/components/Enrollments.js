@@ -43,10 +43,10 @@ function Enrollments() {
         {enrollments.map(enrollment => (
           <div key={enrollment.enrollment_id} className="enrollment-card">
             <h2>{enrollment.youth_name}</h2>
-            <p>Age: {enrollment.youth_age}</p>
-            <p>Email: {enrollment.youth_email}</p>
-            <p>Game: {enrollment.game_name}</p>
-            <p>Enrollment Date: {enrollment.enrollment_date}</p>
+            <p><strong>Age: </strong> {enrollment.youth_age} years</p>
+            <p><strong>Email: </strong> {enrollment.youth_email}</p>
+            <p><strong>Game: </strong> {enrollment.game_name}</p>
+            <p><strong>Enrollment Date: </strong> {enrollment.enrollment_date}</p>
           </div>
         ))}
       </div>

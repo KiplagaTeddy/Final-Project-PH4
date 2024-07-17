@@ -35,6 +35,8 @@ body {
   }
   
   .enrollment-card {
+    padding:8%;
+    padding-top:3%;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
@@ -48,13 +50,20 @@ body {
   }
   
   .enrollment-card h2 {
-    font-size: 1.8em;
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 500;
+    font-style: Normal;
+    position: relative;
+    font-size: 2.4em;
     color: #4a90e2;
     margin-bottom: 10px;
     border-radius: 5px;
   }
   
   .enrollment-card p {
+    font-family: "Poppins", sans-serif;
+    font-weight:400;
+    font-style: normal;
     color: #666;
     font-size: 1.1em;
     margin-bottom: 8px;
