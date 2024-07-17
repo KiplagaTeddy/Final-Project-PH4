@@ -1,139 +1,161 @@
 /* Body and general styles */
 body {
-  font-family: 'Roboto', sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f2f2f2;
-}
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+  }
 
-.patrons-page {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #fff; /* White background */
-  border-radius: 10px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  margin-top: 80px; /* Adjust margin-top to account for navbar height */
+  .patrons-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px; /* Add space below the form */
 }
+  
+  .patrons-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff; /* White background */
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    margin-top: 80px; /* Adjust margin-top to account for navbar height */
+  }
+  
+  h1 {
+    font-size: 2.5em;
+    color: #333;
+    text-align: center;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+  }
+  
+  .patrons-form select {
+    width: 400px;
+    padding: 15px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    box-sizing: border-box;
+    font-size: 1em;
+    transition: border-color 0.3s ease-in-out;
+}
+  .patrons-form input {
+      width: 80%;
+      padding: 12px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 7px;
+      box-sizing: border-box;
+      font-size: 1em;
+      transition: border-color 0.3s ease-in-out;
+  }
+  
+  .patrons-form input:focus,
+  .patrons-form select:focus {
+      border-color: #4CAF50; /* Green border on focus */
+      outline: none;
+  }
+  
+  /* Styling for the select boxes */
+  .select-game {
+      background-color: #f9f9f9;
+      color: #333;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1em;
+      transition: border-color 0.3s ease-in-out;
+  }
+  
+  .select-game:focus {
+      border-color: #4CAF50;
+  }
+  
+  .patrons-form button {
+      width: 50%;
+      background-color:rgb(30, 144, 255);
+      color: white;
+      padding: 12px 20px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.2em;
+      transition: background-color 0.3s ease-in-out;
+  }
+  
+  .patrons-form button:hover {
+      background-color: #45a049;
+  }
+  
+  .patrons-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  
+  .patron-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .patron-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  }
+  
+  .patron-card h2 {
+    font-size: 1.8em;
+    color: #4a90e2;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  
+  .patron-card p {
+    color: #666;
+    font-size: 1.1em;
+    margin-bottom: 8px;
+  }
+  
+  .delete {
+    background-color: #ff4d4f;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 5px;
+  }
+  
+  .delete:hover {
+    background-color: #f5222d;
+  }
+  
+  .edit {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 5px;
+  }
+  
+  .edit:hover {
+    background-color: #45a049;
+  }
 
-h1 {
-  font-size: 2.5em;
-  color: #333;
-  text-align: center;
-  border-bottom: 2px solid #ccc;
-  padding-bottom: 10px;
-  margin-bottom: 20px;
-  border-radius: 5px;
-}
-
-.patrons-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.patrons-form input, .patrons-form select {
-  padding: 10px;
-  margin: 5px;
-  font-size: 1em;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  outline: none;
-  width: 100%;
-  max-width: 400px;
-}
-
-.patrons-form select {
-  appearance: none;
-  background: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="#ccc" d="M2 0L0 2h4L2 0zM2 5L0 3h4L2 5z"/></svg>') no-repeat right 10px center;
-  background-size: 10px;
-}
-
-.error-message {
-  color: #ff4d4f;
-  font-size: 0.9em;
-  margin-top: 5px;
-}
-
-.patrons-form button {
-  padding: 10px 20px;
-  font-size: 1em;
-  border: none;
-  border-radius: 5px;
-  background-color: #1890ff;
-  color: white;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: 10px;
-}
-
-.patrons-form button:hover {
-  background-color: #0d68a2;
-}
-
-.patrons-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-}
-
-.patron-card {
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  padding: 20px;
-  text-align: center;
-}
-
-.patron-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-}
-
-.patron-card h2 {
-  font-size: 1.8em;
-  color: #4a90e2;
-  margin-bottom: 10px;
-  border-radius: 5px;
-}
-
-.patron-card p {
-  color: #666;
-  font-size: 1.1em;
-  margin-bottom: 8px;
-}
-
-.delete {
-  background-color: #ff4d4f;
-  color: #fff;
-  border: none;
-  padding: 8px 16px;
-  font-size: 1em;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin: 5px;
-}
-
-.delete:hover {
-  background-color: #f5222d;
-}
-
-.edit {
-  background-color: #4CAF50;
-  color: #fff;
-  border: none;
-  padding: 8px 16px;
-  font-size: 1em;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin: 5px;
-}
-
-.edit:hover {
-  background-color: #45a049;
-}
+  
