@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../styles/Patrons.css'; 
+import Footer from './Footer';
 
 const Patrons = () => {
     const [patrons, setPatrons] = useState([]);
@@ -66,6 +67,7 @@ const Patrons = () => {
     };
 
     return (
+        <div>
         <div className="patrons-page">
             <h1>Patrons</h1>
             <form onSubmit={handleFormSubmit} className="patrons-form">
@@ -107,6 +109,8 @@ const Patrons = () => {
                 ))}
             </div>
         </div>
+        <Footer />
+    </div>
     );
 };
 

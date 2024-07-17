@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/Youths.css';
 import Navbar from './Navbar';
+import Footer from './Footer';
 
 function Youths() {
   const [youths, setYouths] = useState([]);
@@ -113,6 +114,7 @@ function Youths() {
   };
 
   return (
+    <div>
     <div className="youths-page">
       <Navbar />
       <h1>Youths Registered</h1>
@@ -170,6 +172,8 @@ function Youths() {
         </div>
       )}
     </div>
+      <Footer />
+      </div>
   );
 }
 

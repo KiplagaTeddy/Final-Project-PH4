@@ -7,14 +7,15 @@ import NotFound from './components/NotFound';
 import About from './components/About';
 import YouthForm from './components/YouthForm';
 import Enrollments from './components/Enrollments';
-import Patrons from './components/Patrons'; // Import Patrons component
-import Navbar from './components/Navbar'; // Import the Navbar component
+import Patrons from './components/Patrons';
+import PatronGames from './components/PatronGames'; 
+import Navbar from './components/Navbar';
 
 function App() {
   return (
     <Router>
       <div>
-        <Navbar /> {/* Add the Navbar here */}
+        <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/programs" element={<Programs />} />
@@ -22,7 +23,8 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/add-youth" element={<YouthForm />} />
           <Route path="/enrollments" element={<Enrollments />} />
-          <Route path="/patrons" element={<Patrons />} /> {/* Add the Patrons route */}
+          <Route path="/patrons" element={<Patrons />} />
+          <Route path="/patron-games" element={<PatronGames />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>

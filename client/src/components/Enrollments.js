@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/Enrollments.css';
 import Navbar from './Navbar';
+import Footer from './Footer';
 
 function Enrollments() {
   const [enrollments, setEnrollments] = useState([]);
@@ -33,6 +34,7 @@ function Enrollments() {
   };
 
   return (
+  <div>
     <div className="enrollments-page">
       <Navbar />
       <h1>Enrollments</h1>
@@ -48,8 +50,11 @@ function Enrollments() {
             <p>Game: {enrollment.game_name}</p>
             <p>Enrollment Date: {enrollment.enrollment_date}</p>
           </div>
+          
         ))}
       </div>
+    </div>
+    <Footer />
     </div>
   );
 }

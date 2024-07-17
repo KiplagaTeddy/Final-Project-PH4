@@ -37,11 +37,12 @@
 }
 
 .navbar ul li {
-  margin-left: 1rem;
+  /* margin-left: 1rem; */
   font-family: "Bebas Neue", sans-serif;
   font-weight: 50;
   font-style: normal;
   font-size: 2rem;
+  margin-right:10px;
 }
 
 .navbar ul li a {

@@ -3,7 +3,7 @@
 from flask import Flask, request, jsonify
 from flask_restful import Resource, Api
 from flask_migrate import Migrate
-from models import db, Youth, Game, Enrollment, Patron  # Make sure to import all relevant models
+from models import db, Youth, Game, Enrollment, Patron  
 from flask_cors import CORS
 from datetime import datetime
 
@@ -257,12 +257,33 @@ class EnrollmentDetails(Resource):
             })
 
         return jsonify(enrollment_details)
+class PatronGamesResource(Resource):
+    def get(self):
+        # Join Patron and Game tables
+        results = db.session.query(
+            Patron.id.label('patron_id'),
+            Patron.name.label('patron_name'),
+            Game.id.label('game_id'),
+            Game.name.label('game_name')
+        ).join(Game, Patron.id == Game.patron_id).all()
+
+        patron_games = []
+        for result in results:
+            patron_games.append({
+                'patron_id': result.patron_id,
+                'patron_name': result.patron_name,
+                'game_id': result.game_id,
+                'game_name': result.game_name
+            })
+
+        return jsonify(patron_games)
 
 api.add_resource(YouthResource, '/youths', '/youths/<int:youth_id>')
 api.add_resource(GameResource, '/games', '/games/<int:game_id>')
 api.add_resource(EnrollmentResource, '/enrollments', '/enrollments/<int:enrollment_id>')
 api.add_resource(PatronResource, '/patrons', '/patrons/<int:patron_id>')
 api.add_resource(EnrollmentDetails, '/enrollment_details')
+api.add_resource(PatronGamesResource, '/patron_games')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
