@@ -16,7 +16,23 @@ function Enrollments() {
         return response.json();
       })
       .then(data => {
-        setEnrollments(data);
+        // Group by youth ID and enrollment date
+        const groupedData = data.reduce((acc, enrollment) => {
+          const key = `${enrollment.youth_id}_${enrollment.enrollment_date}`;
+          if (!acc[key]) {
+            acc[key] = {
+              youth_name: enrollment.youth_name,
+              youth_age: enrollment.youth_age,
+              youth_email: enrollment.youth_email,
+              enrollment_date: enrollment.enrollment_date,
+              games: []
+            };
+          }
+          acc[key].games.push(enrollment.game_name);
+          return acc;
+        }, {});
+
+        setEnrollments(Object.values(groupedData));
       })
       .catch(error => console.error('Error fetching enrollments:', error));
   }, []);
@@ -34,27 +50,36 @@ function Enrollments() {
   };
 
   return (
-  <div>
-    <div className="enrollments-page">
-      <Navbar />
-      <h1>Enrollments</h1>
-      <button onClick={handleSort} className="sort">
-        {sortOrder === 'asc' ? 'Sort by Date Ascending' : 'Sort by Date Descending'}
-      </button>
-      <div className="enrollments-list">
-        {enrollments.map(enrollment => (
-          <div key={enrollment.enrollment_id} className="enrollment-card">
-            <h2>{enrollment.youth_name}</h2>
-            <p>Age: {enrollment.youth_age}</p>
-            <p>Email: {enrollment.youth_email}</p>
-            <p>Game: {enrollment.game_name}</p>
-            <p>Enrollment Date: {enrollment.enrollment_date}</p>
-          </div>
-          
-        ))}
+    <div>
+      <div className="enrollments-page">
+        <Navbar />
+        <h1>Enrollments</h1>
+        <button onClick={handleSort} className="sort">
+          {sortOrder === 'asc' ? 'Sort by Date Ascending' : 'Sort by Date Descending'}
+        </button>
+        <div className="enrollments-list">
+          {enrollments.length > 0 ? (
+            enrollments.map((enrollment, index) => (
+              <div key={index} className="enrollment-card">
+                <h2>{enrollment.youth_name}</h2>
+                <p>Age: {enrollment.youth_age}</p>
+                <p>Email: {enrollment.youth_email}</p>
+                {enrollment.games.length > 1 ? ( // for youth 16 games[5]
+                  enrollment.games.map((game, idx) => (
+                    <p key={idx}>{`Game ${idx + 1}: ${game}`}</p>
+                  ))
+                ) : (
+                  <p>Game: {enrollment.games[0]}</p>
+                )}
+                <p>Enrollment Date: {enrollment.enrollment_date}</p>
+              </div>
+            ))
+          ) : (
+            <p>No enrollments available.</p>
+          )}
+        </div>
       </div>
-    </div>
-    <Footer />
+      <Footer />
     </div>
   );
 }
