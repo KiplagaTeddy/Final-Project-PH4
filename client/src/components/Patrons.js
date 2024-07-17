@@ -104,7 +104,7 @@ const Patrons = () => {
           email: form.email,
           phone_number: form.phone_number,
         });
-        patronResponse = { data: { id: form.id } }; // Assuming response has the patron id
+        patronResponse = { data: { id: form.id } }; 
         console.log('Patron updated:', form);
       } else {
         // Create new patron
@@ -189,78 +189,77 @@ const Patrons = () => {
 
   return (
     <div>
-    <div className="patrons-page">
-      <h1>Patrons</h1>
-      <form onSubmit={handleFormSubmit} className="patrons-form">
-        <input
-          type="text"
-          name="name"
-          placeholder="Name"
-          value={form.name}
-          onChange={handleInputChange}
-          required
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={form.email}
-          onChange={handleInputChange}
-          required
-        />
-        <input
-          type="text"
-          name="phone_number"
-          placeholder="Phone Number"
-          value={form.phone_number}
-          onChange={handleInputChange}
-          required
-        />
-        <label>
-          <select
-            name="game_id"
-            value={form.game_id}
+      <div className="patrons-page">
+        <h1>Patrons</h1>
+        <form onSubmit={handleFormSubmit} className="patrons-form">
+          <input
+            type="text"
+            name="name"
+            placeholder="Name"
+            value={form.name}
             onChange={handleInputChange}
             required
-          >
-            <option value="">Select game 1 (required)</option>
-            {games.map(game => (
-              <option key={game.id} value={game.id}>{game.name}</option>
-            ))}
-          </select>
-          {formErrors.game_id && <span className="error-message">{formErrors.game_id}</span>}
-        </label>
-        <label>
-          <select
-            name="game_id_2"
-            value={form.game_id_2}
-            onChange={handleInputChange}
-          >
-            <option value="">Select game 2 (optional)</option>
-            {games
-              .filter(game => game.id !== parseInt(form.game_id))
-              .map(game => (
-                <option key={game.id} value={game.id}>{game.name}</option>
-              ))
-            }
-          </select>
-          {formErrors.game_id_2 && <span className="error-message">{formErrors.game_id_2}</span>}
-        </label>
-        <button type="submit">{form.id ? 'Update' : 'Create'} Patron</button>
-      </form>
-      <div className="patrons-list">
-        {patrons.map(patron => (
-          <PatronCard
-            key={patron.id}
-            patron={patron}
-            onEditClick={handleEditClick}
-            onDeleteClick={handleDeleteClick}
           />
-        ))}
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={form.email}
+            onChange={handleInputChange}
+            required
+          />
+          <input
+            type="text"
+            name="phone_number"
+            placeholder="Phone Number"
+            value={form.phone_number}
+            onChange={handleInputChange}
+            required
+          />
+          <label>
+            <select
+              name="game_id"
+              value={form.game_id}
+              onChange={handleInputChange}
+              required
+            >
+              <option value="">Select game 1 (required)</option>
+              {games.map(game => (
+                <option key={game.id} value={game.id}>{game.name}</option>
+              ))}
+            </select>
+            {formErrors.game_id && <span className="error-message">{formErrors.game_id}</span>}
+          </label>
+          <label>
+            <select
+              name="game_id_2"
+              value={form.game_id_2}
+              onChange={handleInputChange}
+            >
+              <option value="">Select game 2 (optional)</option>
+              {games
+                .filter(game => game.id !== parseInt(form.game_id))
+                .map(game => (
+                  <option key={game.id} value={game.id}>{game.name}</option>
+                ))
+              }
+            </select>
+            {formErrors.game_id_2 && <span className="error-message">{formErrors.game_id_2}</span>}
+          </label>
+          <button type="submit">{form.id ? 'Update' : 'Create'} Patron</button>
+        </form>
+        <div className="patrons-list">
+          {patrons.map(patron => (
+            <PatronCard
+              key={patron.id}
+              patron={patron}
+              onEditClick={handleEditClick}
+              onDeleteClick={handleDeleteClick}
+            />
+          ))}
+        </div>
       </div>
-    </div>
-    <Footer />
-
+      <Footer />
     </div>
   );
 };

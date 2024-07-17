@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import '../styles/YouthForm.css'; // Import CSS for styling
+import '../styles/YouthForm.css';
 import Navbar from './Navbar';
 import Footer from './Footer';
 
-axios.defaults.baseURL = 'http://localhost:5555'; 
+axios.defaults.baseURL = 'http://localhost:5555';
+
+const Notification = ({ message, type }) => (
+  <div className={`notification ${type} ${message ? 'show' : ''}`}>
+    {message}
+  </div>
+);
 
 const YouthForm = () => {
   const games = [
@@ -34,6 +40,9 @@ const YouthForm = () => {
     game_id_2: '',
   });
 
+  const [notification, setNotification] = useState({ show: false, message: '', type: '' });
+  const [formVisible, setFormVisible] = useState(true); // State variable to control form visibility
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -43,7 +52,8 @@ const YouthForm = () => {
 
     // Validate fields
     if (name === 'age') {
-      if (value < 12 || value > 29) {
+      const ageValue = parseInt(value, 10);
+      if (isNaN(ageValue) || ageValue < 12 || ageValue > 29) {
         setFormErrors({
           ...formErrors,
           age: 'Age must be between 12 and 29 years.'
@@ -91,6 +101,7 @@ const YouthForm = () => {
     // Check if there are any errors before submitting
     if (formErrors.age || formErrors.game_id || formErrors.game_id_2) {
       console.error('Form has errors. Cannot submit.');
+      setNotification({ show: true, message: 'Please correct the errors in the form.', type: 'error' });
       return;
     }
 
@@ -100,11 +111,20 @@ const YouthForm = () => {
         ...formErrors,
         game_id: 'Game 1 is required.'
       });
+      setNotification({ show: true, message: 'Please select at least one game.', type: 'error' });
       return;
     }
 
+    // Prepare data for submission
+    const submissionData = {
+      ...formData,
+      age: parseInt(formData.age, 10),
+      game_id: parseInt(formData.game_id, 10),
+      game_id_2: formData.game_id_2 ? parseInt(formData.game_id_2, 10) : null
+    };
+
     // Post request to create youth
-    axios.post('/youths', formData)
+    axios.post('/youths', submissionData)
       .then(response => {
         console.log('Youth created:', response.data);
         // Clear the form after youth creation
@@ -116,36 +136,42 @@ const YouthForm = () => {
           game_id_2: ''
         });
 
+        // Show success notification
+        setNotification({ show: true, message: 'Registration successful', type: 'success' });
+
+        // Hide notification after 5 seconds
+        setTimeout(() => setNotification({ show: false, message: '', type: '' }), 5000);
+
+        // Hide the form after successful registration
+        setFormVisible(false);
+
         // Post request to create enrollment
         const enrollmentData = {
           youth_id: response.data.id, 
-          game_id: formData.game_id
+          game_id: submissionData.game_id
         };
 
-        axios.post('/enrollments', enrollmentData)
-          .then(enrollmentResponse => {
-            console.log('Enrollment created:', enrollmentResponse.data);
-            if (formData.game_id_2) {
-              const enrollmentData2 = {
-                youth_id: response.data.id,
-                game_id: formData.game_id_2
-              };
+        return axios.post('/enrollments', enrollmentData);
+      })
+      .then(enrollmentResponse => {
+        console.log('Enrollment created:', enrollmentResponse.data);
+        if (submissionData.game_id_2) {
+          const enrollmentData2 = {
+            youth_id: enrollmentResponse.data.youth_id,
+            game_id: submissionData.game_id_2
+          };
 
-              axios.post('/enrollments', enrollmentData2)
-                .then(enrollmentResponse2 => {
-                  console.log('Second enrollment created:', enrollmentResponse2.data);
-                })
-                .catch(enrollmentError2 => {
-                  console.error('Error creating second enrollment:', enrollmentError2);
-                });
-            }
-          })
-          .catch(enrollmentError => {
-            console.error('Error creating enrollment:', enrollmentError);
-          });
-
-      }).catch(error => {
+          return axios.post('/enrollments', enrollmentData2);
+        }
+      })
+      .then(enrollmentResponse2 => {
+        if (enrollmentResponse2) {
+          console.log('Second enrollment created:', enrollmentResponse2.data);
+        }
+      })
+      .catch(error => {
         console.error('There was an error creating the youth!', error);
+        setNotification({ show: true, message: 'An error occurred during registration. Please try again.', type: 'error' });
       });
   };
 
@@ -153,71 +179,74 @@ const YouthForm = () => {
     <div className="youth-form-container">
       <Navbar />
       <main>
-        <form className="youth-form" onSubmit={handleSubmit}>
-          <h2>Register Youth</h2>
-          <label>
-            <input 
-              placeholder='Full Name' 
-              type="text" 
-              name="name" 
-              value={formData.name} 
-              onChange={handleChange} 
-              required 
-            />
-          </label>
-          <label>
-            <input 
-              placeholder='Age' 
-              type="number" 
-              name="age" 
-              value={formData.age} 
-              onChange={handleChange} 
-              required 
-            />
-            {formErrors.age && <span className="error-message">{formErrors.age}</span>}
-          </label>
-          <label>
-            <input 
-              placeholder='Email Address' 
-              type="email" 
-              name="email" 
-              value={formData.email} 
-              onChange={handleChange} 
-              required 
-            />
-          </label>
-          <label>
-            <select 
-              name="game_id" 
-              value={formData.game_id} 
-              onChange={handleChange} 
-              required
-            >
-              <option value="">Select game 1 (required)</option>
-              {games.map(game => (
-                <option key={game.id} value={game.id}>{game.name}</option>
-              ))}
-            </select>
-            {formErrors.game_id && <span className="error-message">{formErrors.game_id}</span>}
-          </label>
-          <label>
-            <select 
-              name="game_id_2" 
-              value={formData.game_id_2} 
-              onChange={handleChange}
-            >
-              <option value="">Select game 2 (optional)</option>
-              {games
-                .filter(game => game.id !== parseInt(formData.game_id)) // Exclude selected game 1
-                .map(game => (
+        {notification.show && <Notification message={notification.message} type={notification.type} />}
+        {formVisible && (
+          <form className="youth-form" onSubmit={handleSubmit}>
+            <h2>Register Youth</h2>
+            <label>
+              <input 
+                placeholder='Full Name' 
+                type="text" 
+                name="name" 
+                value={formData.name} 
+                onChange={handleChange} 
+                required 
+              />
+            </label>
+            <label>
+              <input 
+                placeholder='Age' 
+                type="number" 
+                name="age" 
+                value={formData.age} 
+                onChange={handleChange} 
+                required 
+              />
+              {formErrors.age && <span className="error-message">{formErrors.age}</span>}
+            </label>
+            <label>
+              <input 
+                placeholder='Email Address' 
+                type="email" 
+                name="email" 
+                value={formData.email} 
+                onChange={handleChange} 
+                required 
+              />
+            </label>
+            <label>
+              <select 
+                name="game_id" 
+                value={formData.game_id} 
+                onChange={handleChange} 
+                required
+              >
+                <option value="">Select game 1 (required)</option>
+                {games.map(game => (
                   <option key={game.id} value={game.id}>{game.name}</option>
-                ))
-              }
-            </select>
-            {formErrors.game_id_2 && <span className="error-message">{formErrors.game_id_2}</span>}
-          </label>
-          <button type="submit">Register</button>
-        </form>
+                ))}
+              </select>
+              {formErrors.game_id && <span className="error-message">{formErrors.game_id}</span>}
+            </label>
+            <label>
+              <select 
+                name="game_id_2" 
+                value={formData.game_id_2} 
+                onChange={handleChange}
+              >
+                <option value="">Select game 2 (optional)</option>
+                {games
+                  .filter(game => game.id !== parseInt(formData.game_id)) // Exclude selected game 1
+                  .map(game => (
+                    <option key={game.id} value={game.id}>{game.name}</option>
+                  ))
+                }
+              </select>
+              {formErrors.game_id_2 && <span className="error-message">{formErrors.game_id_2}</span>}
+            </label>
+            <button type="submit">Register</button>
+          </form>
+        )}
       </main>
       <Footer />
     </div>

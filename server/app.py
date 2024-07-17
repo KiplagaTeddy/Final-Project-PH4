@@ -35,6 +35,7 @@ class YouthResource(Resource):
 
     def post(self):
         data = request.get_json()
+        print(data)
         youth = Youth(
             name=data.get('name'),
             age=data.get('age'),
