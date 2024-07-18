@@ -3,7 +3,7 @@
 from flask import Flask, request, jsonify
 from flask_restful import Resource, Api
 from flask_migrate import Migrate
-from models import db, Youth, Game, Enrollment, Patron  
+from models import db, Youth, Game, Enrollment, Patron, PatronGame  
 from flask_cors import CORS
 from datetime import datetime
 
@@ -218,17 +218,6 @@ class PatronResource(Resource):
                 return {'error': str(e)}, 400
         return {'error': 'Patron not found'}, 404
 
-    def delete(self, patron_id):
-        patron = Patron.query.get(patron_id)
-        if patron:
-            try:
-                db.session.delete(patron)
-                db.session.commit()
-                return {'message': 'Patron deleted'}, 200
-            except Exception as e:
-                db.session.rollback()
-                return {'error': str(e)}, 400
-        return {'error': 'Patron not found'}, 404
 
 class EnrollmentDetails(Resource):
     def get(self):
@@ -257,33 +246,100 @@ class EnrollmentDetails(Resource):
             })
 
         return jsonify(enrollment_details)
-class PatronGamesResource(Resource):
+
+class PatronGameDetails(Resource):
     def get(self):
-        # Join Patron and Game tables
+        # Join Patron and Game tables through PatronGame
         results = db.session.query(
             Patron.id.label('patron_id'),
             Patron.name.label('patron_name'),
             Game.id.label('game_id'),
             Game.name.label('game_name')
-        ).join(Game, Patron.id == Game.patron_id).all()
+        ).join(PatronGame, Patron.id == PatronGame.patron_id)\
+         .join(Game, PatronGame.game_id == Game.id).all()
 
-        patron_games = []
+        patron_game_details = []
         for result in results:
-            patron_games.append({
+            patron_game_details.append({
                 'patron_id': result.patron_id,
                 'patron_name': result.patron_name,
                 'game_id': result.game_id,
                 'game_name': result.game_name
             })
 
-        return jsonify(patron_games)
+        return jsonify(patron_game_details)
+
+    def post(self):
+        data = request.get_json()
+        patron_id = data.get('patron_id')
+        game_id = data.get('game_id')
+        game_id_2 = data.get('game_id_2')
+
+        PatronGame.query.filter_by(patron_id=patron_id).delete()
+
+        # Add new patron games
+        patron_games = []
+        if game_id:
+            patron_games.append(PatronGame(patron_id=patron_id, game_id=game_id))
+        if game_id_2:
+            patron_games.append(PatronGame(patron_id=patron_id, game_id=game_id_2))
+
+        try:
+            db.session.bulk_save_objects(patron_games)
+            db.session.commit()
+            return {'message': 'Patron games updated successfully'}, 201
+        except Exception as e:
+            db.session.rollback()
+            return {'error': str(e)}, 400
+
+    def put(self):
+        data = request.get_json()
+        patron_id = data.get('patron_id')
+        game_id = data.get('game_id')
+        game_id_2 = data.get('game_id_2')
+
+        PatronGame.query.filter_by(patron_id=patron_id).delete()
+
+        # Update patron games
+        patron_games = []
+        if game_id:
+            patron_games.append(PatronGame(patron_id=patron_id, game_id=game_id))
+        if game_id_2:
+            patron_games.append(PatronGame(patron_id=patron_id, game_id=game_id_2))
+
+        try:
+            db.session.bulk_save_objects(patron_games)
+            db.session.commit()
+            return {'message': 'Patron games updated successfully'}, 200
+        except Exception as e:
+            db.session.rollback()
+            return {'error': str(e)}, 400
+
+@app.route('/patrons/<int:id>', methods=['DELETE'])
+def delete_patron(id):
+    try:
+        patron = Patron.query.get(id)
+        if not patron:
+            return jsonify({'error': 'Patron not found'}), 404
+        
+        # Delete associated records in patron_games
+        PatronGame.query.filter_by(patron_id=id).delete()
+        
+        # Delete the patron
+        db.session.delete(patron)
+        db.session.commit()
+        
+        return jsonify({'message': 'Patron deleted successfully'}), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'error': str(e)}), 400
 
 api.add_resource(YouthResource, '/youths', '/youths/<int:youth_id>')
 api.add_resource(GameResource, '/games', '/games/<int:game_id>')
 api.add_resource(EnrollmentResource, '/enrollments', '/enrollments/<int:enrollment_id>')
 api.add_resource(PatronResource, '/patrons', '/patrons/<int:patron_id>')
 api.add_resource(EnrollmentDetails, '/enrollment_details')
-api.add_resource(PatronGamesResource, '/patron_games')
+api.add_resource(PatronGameDetails, '/patron_game_details')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

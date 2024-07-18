@@ -10,7 +10,6 @@ class Youth(db.Model, SerializerMixin):
     age = db.Column(db.Integer, nullable=False)
     email = db.Column(db.String, unique=True, nullable=False)
     password = db.Column(db.String)
-   
 
     enrollments = db.relationship('Enrollment', backref='youth', lazy=True)
     games = association_proxy('enrollments', 'game')
@@ -26,13 +25,12 @@ class Game(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     description = db.Column(db.Text)
-    patron_id = db.Column(db.Integer, db.ForeignKey('patrons.id'))
     image_url = db.Column(db.String)
 
     enrollments = db.relationship('Enrollment', backref='game', lazy=True)
-    patron = db.relationship('Patron', backref='games', lazy=True)
+    # Remove patron relationship and patron_id column
 
-    serialize_rules = ('-enrollments', '-patron')
+    serialize_rules = ('-enrollments',)
 
     def __repr__(self):
         return f"<Game {self.name}>"
@@ -57,9 +55,24 @@ class Patron(db.Model, SerializerMixin):
     name = db.Column(db.String, nullable=False)
     email = db.Column(db.String, unique=True, nullable=False)
     phone_number = db.Column(db.String, nullable=False)
-    
 
-    serialize_rules = ('-games',)
+    serialize_rules = ('-patron_games',)  # Update to reflect new relationship
 
     def __repr__(self):
         return f"<Patron {self.name}>"
+
+class PatronGame(db.Model, SerializerMixin):
+    __tablename__ = 'patron_games'
+
+    id = db.Column(db.Integer, primary_key=True)
+    patron_id = db.Column(db.Integer, db.ForeignKey('patrons.id'), nullable=False)
+    game_id = db.Column(db.Integer, db.ForeignKey('games.id'), nullable=False)
+
+    # Define relationships
+    patron = db.relationship('Patron', backref=db.backref('patron_games', lazy=True))
+    game = db.relationship('Game', backref=db.backref('patron_games', lazy=True))
+
+    serialize_rules = ('-patron', '-game')
+
+    def __repr__(self):
+        return f"<PatronGame id={self.id} patron_id={self.patron_id} game_id={self.game_id}>"

@@ -1,7 +1,8 @@
 from datetime import datetime, timedelta
 from random import randint
 from config import app, db
-from models import Youth, Game, Enrollment, Patron
+from models import Youth, Game, Enrollment, Patron, PatronGame
+import sqlalchemy as sa  # Import SQLAlchemy
 
 # Create an application context to make Flask-SQLAlchemy work properly
 app.app_context().push()
@@ -116,12 +117,30 @@ for youth_info in youths_data:
     youth = Youth.query.filter_by(name=youth_info['name']).first()
     game = Game.query.get(randint(1, len(games_data)))  # Random game assignment
     if youth and game:
-        enrollment = Enrollment(youth_id=youth.id, game_id=game.id, enrollment_date=datetime.now() - timedelta(days=randint(1, 30)))
+        enrollment = Enrollment(
+            youth_id=youth.id,
+            game_id=game.id,
+            enrollment_date=datetime.now() - timedelta(days=randint(1, 30))
+        )
         db.session.add(enrollment)
     else:
         print(f"Skipping enrollment for youth {youth_info['name']} or game assignment because not found.")
 
 # Commit enrollment changes to the database
+db.session.commit()
+
+# Generate patron_games relationships
+for patron in Patron.query.all():
+    # Randomly assign each patron to 1 to 3 games
+    games = Game.query.order_by(sa.func.random()).limit(randint(1, 3)).all()
+    for game in games:
+        patron_game = PatronGame(
+            patron_id=patron.id,
+            game_id=game.id
+        )
+        db.session.add(patron_game)
+
+# Commit patron_games changes to the database
 db.session.commit()
 
 print("Database seeded successfully.")

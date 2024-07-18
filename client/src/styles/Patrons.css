@@ -35,7 +35,7 @@ body {
     margin-bottom: 20px;
   }
   
-  .patrons-form input {
+  .patrons-form input, .patron-form select {
     padding: 10px;
     margin: 5px;
     font-size: 1em;

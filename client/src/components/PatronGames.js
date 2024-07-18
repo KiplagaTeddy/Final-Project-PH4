@@ -8,7 +8,7 @@ function PatronGames() {
   const [sortOrder, setSortOrder] = useState('asc');
 
   useEffect(() => {
-    fetch('http://localhost:5555/patron_games')
+    fetch('http://localhost:5555/patron_game_details')
       .then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
