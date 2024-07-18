@@ -188,6 +188,7 @@ const Patrons = () => {
   };
 
   return (
+    <div>
     <div className="patrons-page">
       <h1>Patrons</h1>
       <form onSubmit={handleFormSubmit} className="patrons-form">
@@ -257,7 +258,9 @@ const Patrons = () => {
           />
         ))}
       </div>
-      <Footer />
+    </div>
+    <Footer />
+
     </div>
   );
 };
