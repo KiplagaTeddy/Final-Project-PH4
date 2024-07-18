@@ -7,6 +7,13 @@ body {
     padding: 0;
     background-color: #f2f2f2;
   }
+
+  .patrons-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px; /* Add space below the form */
+}
   
   .patrons-page {
     max-width: 1200px;
@@ -28,37 +35,63 @@ body {
     border-radius: 5px;
   }
   
-  .patrons-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
+  .patrons-form select {
+    width: 400px;
+    padding: 15px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    box-sizing: border-box;
+    font-size: 1em;
+    transition: border-color 0.3s ease-in-out;
+}
+  .patrons-form input {
+      width: 80%;
+      padding: 12px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 7px;
+      box-sizing: border-box;
+      font-size: 1em;
+      transition: border-color 0.3s ease-in-out;
   }
   
-  .patrons-form input, .patron-form select {
-    padding: 10px;
-    margin: 5px;
-    font-size: 1em;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    outline: none;
-    width: 100%;
-    max-width: 400px;
+  .patrons-form input:focus,
+  .patrons-form select:focus {
+      border-color: #4CAF50; /* Green border on focus */
+      outline: none;
+  }
+  
+  /* Styling for the select boxes */
+  .select-game {
+      background-color: #f9f9f9;
+      color: #333;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1em;
+      transition: border-color 0.3s ease-in-out;
+  }
+  
+  .select-game:focus {
+      border-color: #4CAF50;
   }
   
   .patrons-form button {
-    padding: 10px 20px;
-    font-size: 1em;
-    border: none;
-    border-radius: 5px;
-    background-color: #1890ff;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+      width: 50%;
+      background-color:rgb(30, 144, 255);
+      color: white;
+      padding: 12px 20px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.2em;
+      transition: background-color 0.3s ease-in-out;
   }
   
   .patrons-form button:hover {
-    background-color: #0d68a2;
+      background-color: #45a049;
   }
   
   .patrons-list {
@@ -126,4 +159,5 @@ body {
   .edit:hover {
     background-color: #45a049;
   }
+
   
