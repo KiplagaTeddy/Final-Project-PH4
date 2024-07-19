@@ -1,5 +1,11 @@
 # Vijana Sports System 
 
+### Group Members: Bill Mageni, Teddy Kiplagat, Levis Otieno , Habib Mohamed
+#### Date, 2024/07/20
+
+
+# Introduction
+
 Vijana Sports System  is a full-stack web application designed to streamline youth program management. Using a Flask backend and a React frontend, the platform provides an intuitive experience for managing youth enrollments in various programs. The system facilitates easy communication between patrons, youths, and program administrators, enhancing the overall engagement and effectiveness of youth enrichment initiatives.
 
 ## Problem Statement
@@ -27,14 +33,12 @@ Vijana Sports System aims to address these challenges by offering a modern, user
 ## ERD Diagram
 Entity-Relational Diagram (ERD) that shows the relationships between different records from diffrent tables:
 
-![alt text](image.png)
-
+![alt text](image-3.png)
 ## React Web Application (Frontend) 
 
 Once the user lands on the Application , there is a user-frienly Home Page as shown below:
 
-<!-- ![alt text](image-1.png) -->
-
+![alt text](image-1.png)
 ## Features
 
 
@@ -45,15 +49,15 @@ Once the user lands on the Application , there is a user-frienly Home Page as sh
 
 ### Program Management
 - **View Programs:** Provide a comprehensive list of programs offered by various patrons.
-- **Create Programs:** Allow patrons to create new programs with details such as name, description, and schedule.
-- **Update Program Details:** Enable patrons to modify program information and manage program statuses (e.g., active, inactive).
+<!-- - **Create Programs:** Allow patrons to create new programs with details such as name, description, and schedule. -->
+- **Update Program Details:** Enable patrons to modify program information and manage patrons in charge
 
 ### Enrollment Management
 - **Enroll Youths:** Facilitate youths to enroll in various programs offered by patrons.
-- **Track Enrollments:** Allow patrons to track youth enrollments in their programs and manage enrollment statuses.
+<!-- - **Track Enrollments:** Allow patrons to track youth enrollments in their programs and manage enrollment statuses. -->
 - **Enrollment History:** Maintain a history of enrollments for each youth and program combination.
 
-### User-Friendly Interface
+### User-Friendly Interfaceb
 - **Intuitive Navigation:** Provide easy navigation through a clean and user-friendly interface for all user roles.
 - **Search and Filter Options:** Implement search and filter functionalities to find programs based on specific criteria (e.g., name, patron).
 
@@ -67,7 +71,96 @@ Once the user lands on the Application , there is a user-frienly Home Page as sh
 - Flask
 - React
 - SQLAlchemy
-- Tailwind CSS
+- Google fonts and CSS
+
+## Response Format
+When a user opens the Youth List page, the fetch is:
+```jsx
+  fetch('/youths')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        setYouths(data);
+        setFilteredYouths(data);
+      })
+      .catch(error => console.error('Error fetching youths:', error));
+```
+For a fetch request for example for a youth with its specific id :
+### fetch("/youths/1")
+```json 
+Example Response:
+[
+  {
+    "password": "1",
+    "id": 1,
+    "age": 15,
+    "email": "youth1@vijanagmail.com",
+    "name": "James Smith"
+}
+]
+   ```
+For a fetch request for example for a enrollments :
+### fetch("/enrollments")
+```json 
+Example Response:
+[
+    {
+        "game_id": 4,
+        "id": 1,
+        "enrollment_date": "2024-07-04 02:43:28",
+        "youth_id": 1
+    },
+    {
+        "game_id": 5,
+        "id": 2,
+        "enrollment_date": "2024-06-25 02:43:28",
+        "youth_id": 2
+    },
+]
+   ```
+
+For a fetch request for example for a games :
+### fetch("/games")
+```json 
+Example Response:
+[
+  {
+    "image_url": "https://example.com/football.jpg",
+    "id": 1,
+    "description": "A competitive game involving two teams aiming to score goals by kicking a ball into the opponent's goal.",
+    "name": "Football",
+    "patron_games": [
+      {
+        "game_id": 1,
+        "id": 7,
+        "patron_id": 3
+      }
+    ]
+  },
+  {
+    "image_url": "https://example.com/rugby.jpg",
+    "id": 2,
+    "description": "A physically demanding sport where two teams of 15 players aim to carry an oval-shaped ball over the opponent's try line.",
+    "name": "Rugby",
+    "patron_games": [
+      {
+        "game_id": 2,
+        "id": 3,
+        "patron_id": 2
+      },
+      {
+        "game_id": 2,
+        "id": 8,
+        "patron_id": 4
+      }
+    ]
+  },
+]
+   ```
 
 ## Getting Started
 
@@ -97,6 +190,7 @@ git clone https://github.com/KiplagaTeddy/Final-Project-PH4
 ```
 3.And Lastly in the terminal, install relevent files with:
 ```
+ npm install --prefix client
  pipenv install
  pipenv install sqlalchemy alembic
  ```
@@ -110,17 +204,17 @@ python cli.py
 ```
 
 ## Technologies used
-1.Python    
-2.SqlAlchemy
-3.React
-4.Flask
-5.Tailwind
+1. Python    
+2. SqlAlchemy
+3. React
+4. Flask
+5. Google Fonts and CSS
 
 ## Installation Requirements
-Git
-React
-Flask
-Npm
+1. Git
+2. React
+3. Flask
+4. Npm
 
 ## Licenses
 MIT License
