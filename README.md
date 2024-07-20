@@ -197,10 +197,16 @@ git clone https://github.com/KiplagaTeddy/Final-Project-PH4
 
 ## Setup
 
-After installation, run this command in your terminal to get cli running :
+1. After installation, run this command in your terminal in the server directory to get backend running :
 
 ```
-python cli.py
+  pipenv shell
+  python app.py
+```
+2. Then run this command in your terminal  to get frontend running using React:
+
+```
+  npm start --prefix client
 ```
 
 ## Technologies used
