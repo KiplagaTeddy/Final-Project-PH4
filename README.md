@@ -225,7 +225,7 @@ git clone https://github.com/KiplagaTeddy/Final-Project-PH4
 ## Licenses
 MIT License
 
-Copyright (c)  GROUP 8 2024
+Copyright (c)  VIJANA SPORTS SYSTEM (GROUP 8) 2024
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
