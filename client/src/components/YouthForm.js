@@ -140,7 +140,7 @@ const YouthForm = () => {
         setNotification({ show: true, message: 'Registration successful', type: 'success' });
 
         // Hide notification after 5 seconds
-        setTimeout(() => setNotification({ show: false, message: '', type: '' }), 5000);
+        setTimeout(() => setNotification({ show: false, message: '', type: '' }), 700000);
 
         // Hide the form after successful registration
         setFormVisible(false);
