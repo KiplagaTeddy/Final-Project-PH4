@@ -5,10 +5,11 @@ from flask_restful import Resource, Api
 from flask_migrate import Migrate
 from models import db, Youth, Game, Enrollment, Patron, PatronGame  
 from flask_cors import CORS
-from datetime import datetime
+import os
+
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://my_database_qa8t_user:mL9k6C1ilfgbJbsSZzGLoBKO12ISXSx7@dpg-cqeift08fa8c73e81nsg-a.oregon-postgres.render.com/app'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 CORS(app)
