@@ -91,7 +91,6 @@ const App = () => {
             <div className="card-content">
               <h3>{game.name}</h3>
                 <p>{game.description}</p>     
-                <h4>Game ID number: {game.id}</h4>
               <Link to="/add-youth" className="btn btn-green">Enroll Now!</Link>
             </div>
           </div>

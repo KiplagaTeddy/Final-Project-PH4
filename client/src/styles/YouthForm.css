@@ -72,10 +72,9 @@ main {
   border-radius: 5px;
   margin-top: 0.5rem;
   background: rgba(0, 0, 0, 0.5);
-  color: #ecf0f1;
+  color: #ffffff; /* Set text color to white */
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
-
 .youth-form input:focus,
 .youth-form select:focus {
   border-color: #4c6ef5;
