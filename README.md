@@ -3,7 +3,6 @@
 ### Group Members: Levis Rabah, Bill Mageni, Teddy Kiplagat , Habib Mohamed
 #### Date, 2025/07/08
 
-
 # Introduction
 
 Vijana Sports System  is a full-stack web application designed to streamline youth program management. Using a Flask backend and a React frontend, the platform provides an intuitive experience for managing youth enrollments in various programs. The system facilitates easy communication between patrons, youths, and program administrators, enhancing the overall engagement and effectiveness of youth enrichment initiatives.
