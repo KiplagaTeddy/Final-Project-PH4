@@ -1,7 +1,7 @@
 # Vijana Sports System 
 
-### Group Members: Bill Mageni, Teddy Kiplagat, Levis Otieno , Habib Mohamed
-#### Date, 2024/07/20
+### Group Members: Levis Rabah, Bill Mageni, Teddy Kiplagat , Habib Mohamed
+#### Date, 2025/07/08
 
 
 # Introduction
