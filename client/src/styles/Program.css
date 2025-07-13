@@ -60,15 +60,21 @@ header h2 {
 .card-content {
   padding: 20px;
 }
-<uniquifier>: t-header
-<weight>: 500
+
+@import url('https://fonts.googleapis.com/css2?family=Teko:wght@500&display=swap');
+
+.t-header {
+  font-family: 'Teko', sans-serif;
+  font-weight: 500;
+}
 
 .playfair-display-uniquifier {
   font-family: "Playfair Display", serif;
   font-optical-sizing: auto;
-  font-weight: <weight>;
+  font-weight: 400;
   font-style: normal;
 }
+
 .card-content h3 {
   color: #4a90e2;
   font-size: 3em;
